@@ -1,9 +1,9 @@
 import { styled } from "styled-components"
 
 const StyledDiv = styled.div`
-    display: flex;
-    justify-content: center;
-    padding: 0 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
 `
 
 const Centered = ({children}) => {

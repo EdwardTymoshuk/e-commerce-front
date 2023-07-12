@@ -1,13 +1,16 @@
-import Head from "next/head"
 import { createGlobalStyle } from "styled-components"
+import { Helmet } from "react-helmet"
 
 const GlobalStyles = createGlobalStyle`
   :root {
     --primary-color: #E9C46A;
+    --text-color: #dee2e6;
+    --dark-text-color: #212529;
+    --bg-color: #e9ecef;
+
     --light-primary-color: #EAC873;
     --header-color: #343a40;
     --light-header-color: #2F5767;
-    --text-color: #ced4da;
     --success-color: #2A9D8F;
     --light-success-color: #2EAFA0;
     --danger-color: #E76F51;
@@ -17,6 +20,7 @@ const GlobalStyles = createGlobalStyle`
     padding: 0;
     margin: 0; 
     color: var(--text-color);
+    background-color: var(--bg-color);
     font-family: 'Roboto', sans-serif;
   }
   a{
@@ -35,9 +39,12 @@ const GlobalStyles = createGlobalStyle`
 export default function App({ Component, pageProps }) {
   return (
     <>
-      <Head>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" />
-      </Head>
+      <Helmet>
+        <link
+           href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap"
+          rel="stylesheet"
+        />
+      </Helmet>
       <GlobalStyles />
       <Component {...pageProps} />
     </>

@@ -27,7 +27,7 @@ const Wrapper = styled.div`
     grid-template-columns: .9fr 1.1fr;
     gap: 2rem;
     img {
-        max-width: 100%;
+        max-width: 550px;
     }
     div {
         display: flex;
@@ -50,8 +50,8 @@ const Featured = ({product}) => {
                 <Title>{title}</Title>
                 <Desc>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quo sapiente nostrum eaque doloremque nemo dignissimos earum voluptatem dolor eveniet ex maiores non eos nobis commodi, sequi eius, enim itaque eligendi.</Desc>
                 <div>
-                <ButtonLink href={'/product/'+_id} outliner size="l">Read more</ButtonLink>
-                <Button size="l" bgColor="success"><FaCartPlus style={{height: "1rem"}}/> Add to cart</Button>
+                <ButtonLink href={'/product/'+_id} $outliner={1} size="l">Read more</ButtonLink>
+                <Button size="l" $bgColor="success"><FaCartPlus style={{height: "1rem"}}/> Add to cart</Button>
                 </div>
                 </div>
                 <div>

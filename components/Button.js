@@ -1,7 +1,9 @@
 import styled, { css } from "styled-components"
 
 export const ButtonStyle = css`
-background-color: var(--primary-color);
+        background-color: var(--primary-color);
+        font-family: 'Poppins', sans-serif;
+        font-size: .8rem;
         border: 0;
         padding: .5rem 1rem;
         border-radius: .2rem;
@@ -10,9 +12,9 @@ background-color: var(--primary-color);
         gap: inherit;
 
         ${props => props.size === 'l' && css`
-          font-size: 1.2rem;
+          font-size: 1rem;
         `}
-        ${props => props.bgColor === 'success' && css`
+        ${props => props.$bgColor === 'success' && css`
         background-color: var(--success-color);
         border: 1px solid;
         border-color: var(--success-color);
@@ -21,7 +23,7 @@ background-color: var(--primary-color);
           border-color: var(--light-success-color);
         }
         `}
-        ${props => props.bgColor === 'danger' && css`
+        ${props => props.$bgColor === 'danger' && css`
         background-color: var(--danger-color);
         border: 1px solid;
         border-color: var(--danger-color);
@@ -30,13 +32,13 @@ background-color: var(--primary-color);
           border-color: var(--light-danger-color);
         }
         `}
-        ${props => props.outliner && css`
+        ${props => props.$outliner && css`
         background-color: transparent;
         border: 1px solid;
         border-color: var(--primary-color);
         &:hover {
           background-color: var(--primary-color);
-          color: white;
+          color: var(--dark-text-color);
           transition: ease-in .5;
         }
         `}
