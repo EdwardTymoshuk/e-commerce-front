@@ -7,12 +7,20 @@ export const ButtonStyle = css`
         border: 0;
         padding: .5rem 1rem;
         border-radius: .2rem;
-        display: flex;
+        display: inline-flex;
         align-items: center;
         gap: inherit;
+        transition: ease-in .5;
 
+        ${props => props.size === 'md' && css`
+          font-size: .8rem;
+        `}
         ${props => props.size === 'l' && css`
           font-size: 1rem;
+        `}
+        ${props => props.block && css`
+          display: block;
+          width: 100%;
         `}
         ${props => props.$bgColor === 'success' && css`
         background-color: var(--success-color);
@@ -31,6 +39,15 @@ export const ButtonStyle = css`
           background-color: var(--light-danger-color);
           border-color: var(--light-danger-color);
         }
+      `}
+        ${props => props.$bgColor === 'black' && css`
+        background-color: #000;
+        border: 1px solid;
+        border-color: #000;
+        &:hover {
+          background-color: #242424;
+          border-color: #242424;
+        }
         `}
         ${props => props.$outliner && css`
         background-color: transparent;
@@ -39,7 +56,6 @@ export const ButtonStyle = css`
         &:hover {
           background-color: var(--primary-color);
           color: var(--dark-text-color);
-          transition: ease-in .5;
         }
         `}
 `

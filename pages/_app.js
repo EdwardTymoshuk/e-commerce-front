@@ -1,5 +1,6 @@
 import { createGlobalStyle } from "styled-components"
 import { Helmet } from "react-helmet"
+import CartContextProvider from "@/components/CartContext"
 
 const GlobalStyles = createGlobalStyle`
   :root {
@@ -33,6 +34,9 @@ const GlobalStyles = createGlobalStyle`
   button:hover {
     cursor: pointer;
   }
+  h2 {
+    color: #000;
+  }
 
 `
 
@@ -41,12 +45,14 @@ export default function App({ Component, pageProps }) {
     <>
       <Helmet>
         <link
-           href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap"
           rel="stylesheet"
         />
       </Helmet>
       <GlobalStyles />
-      <Component {...pageProps} />
+      <CartContextProvider>
+        <Component {...pageProps} />
+      </CartContextProvider>
     </>
   )
 }

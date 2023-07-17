@@ -2,6 +2,8 @@ import Link from "next/link"
 import styled from "styled-components"
 import Button from "./Button"
 import { FaCartPlus } from "react-icons/fa"
+import { useContext } from "react"
+import { CartContext } from "./CartContext"
 
 const ProductWrapper = styled.div`
   
@@ -34,8 +36,8 @@ const PriceRow = styled.div`
     gap: 5px;
   }
   align-items: center;
-  justify-content:space-between;
-  margin-top:2px;
+  justify-content: space-between;
+  margin-top: 2px;
 `
 
 const Price = styled.div`
@@ -45,7 +47,7 @@ const Price = styled.div`
   color: var(--dark-text-color);
   @media screen and (min-width: 768px) {
     font-size: 1.1rem;
-    font-weight:500;
+    font-weight: 500;
     text-align: left;
   }
 `;
@@ -60,6 +62,7 @@ const Title = styled(Link)`
 `
 
 const ProductBox = ({ _id, title, description, price, images }) => {
+    const {addProduct} = useContext(CartContext)
     const url = '/product/' + _id;
     return (
         <ProductWrapper>
@@ -72,7 +75,7 @@ const ProductBox = ({ _id, title, description, price, images }) => {
                     <Price>
                         ${price}
                     </Price>
-                    <Button onClick={() => addProduct(_id)} size="s" $bgColor="success"><FaCartPlus style={{ height: "1rem" }} />Add to cart</Button>
+                    <Button onClick={() => addProduct(_id)} size="s" $bgColor="success">Add to cart</Button>
                 </PriceRow>
             </ProductInfoBox>
         </ProductWrapper>

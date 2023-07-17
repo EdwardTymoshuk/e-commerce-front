@@ -1,9 +1,10 @@
-import React from "react"
+import React, { useContext } from "react"
 import Centered from "./Centered"
 import { styled } from "styled-components"
 import Button from "./Button"
 import { FaCartPlus } from 'react-icons/fa'
 import ButtonLink from "./ButtonLink"
+import { CartContext } from "./CartContext"
 
 const StyledDiv = styled.div`
     display: flex;
@@ -27,7 +28,7 @@ const Wrapper = styled.div`
     grid-template-columns: .9fr 1.1fr;
     gap: 2rem;
     img {
-        max-width: 550px;
+        max-width: 100%;
     }
     div {
         display: flex;
@@ -41,6 +42,10 @@ const Wrapper = styled.div`
 `
 
 const Featured = ({product}) => {
+    const {addProduct} = useContext(CartContext)
+    const addToCart = () => {
+        addProduct (product._id)
+    }
     const {title, _id, images} = product
     return (
         <StyledDiv>
@@ -51,7 +56,7 @@ const Featured = ({product}) => {
                 <Desc>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quo sapiente nostrum eaque doloremque nemo dignissimos earum voluptatem dolor eveniet ex maiores non eos nobis commodi, sequi eius, enim itaque eligendi.</Desc>
                 <div>
                 <ButtonLink href={'/product/'+_id} $outliner={1} size="l">Read more</ButtonLink>
-                <Button size="l" $bgColor="success"><FaCartPlus style={{height: "1rem"}}/> Add to cart</Button>
+                <Button onClick={addToCart} size="l" $bgColor="success"><FaCartPlus style={{height: "1rem"}}/> Add to cart</Button>
                 </div>
                 </div>
                 <div>
