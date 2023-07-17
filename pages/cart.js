@@ -78,17 +78,25 @@ const CartPage = () => {
     }
   }, [cartProducts])
 
-  function moreOfThisProduct(id) {
+  const moreOfThisProduct = (id) => (
     addProduct(id)
-  }
-  function lessOfThisProduct(id) {
+  )
+  const lessOfThisProduct = (id) => (
     removeProduct(id)
+  )
+  const goToPayment = async () => {
+    const response = await axios.post('/api/checkout', {
+      name, email, city, postalCode,
+      streetAddress, country, cartProducts
+    })
+    if (response.data.url) return window.location = response.data.url
   }
   let total = 0
   for (const productId of cartProducts) {
     const price = products.find(value => value._id === productId)?.price || 0
     total += price
   }
+  // if (window.location.href.includes('success'))
   return (
     <>
       <Header />
@@ -148,7 +156,6 @@ const CartPage = () => {
               <>
                 <h2>Order information</h2>
                 <Box>
-                  <form method="post" action="/api/checkout">
                   <Input type="text"
                      placeholder="Name"
                      value={name}
@@ -181,9 +188,7 @@ const CartPage = () => {
                      value={country}
                      name="country"
                      onChange={ev => setCountry(ev.target.value)}/>
-                     <input type="hidden" name="products" value={cartProducts.join(', ')} />
-                    <Button block $bgColor="black" type="submit">Go to payment</Button>
-                  </form>
+                    <Button block $bgColor="black" onClick={goToPayment}>Go to payment</Button>
                 </Box>
               </>
 
