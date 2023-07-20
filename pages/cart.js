@@ -59,7 +59,7 @@ const CityHolder = styled.div`
 `
 
 const CartPage = () => {
-  const { cartProducts, addProduct, removeProduct } = useContext(CartContext)
+  const { cartProducts, addProduct, removeProduct, clearCart } = useContext(CartContext)
   const [products, setProducts] = useState([])
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -67,6 +67,8 @@ const CartPage = () => {
   const [postalCode, setPostalCode] = useState('')
   const [streetAddress, setStreetAddress] = useState('')
   const [country, setCountry] = useState('')
+  const [isSuccess, setIsSuccess] = useState(false)
+
   useEffect(() => {
     if (cartProducts.length > 0) {
       axios.post('/api/cart', { ids: cartProducts })
@@ -77,6 +79,17 @@ const CartPage = () => {
       setProducts([])
     }
   }, [cartProducts])
+
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return
+    }
+    if (window?.location.href.includes('success')) {
+      setIsSuccess(true)
+      console.log(isSuccess)
+      clearCart()
+    }
+  }, []);
 
   const moreOfThisProduct = (id) => (
     addProduct(id)
@@ -96,7 +109,20 @@ const CartPage = () => {
     const price = products.find(value => value._id === productId)?.price || 0
     total += price
   }
-  // if (window.location.href.includes('success'))
+  if (isSuccess) return (
+    <>
+    <Header />
+    <Centered>
+      <ColumnsWraper>
+          <Box>
+            <h3>Thanks for your order!</h3>
+            <p>We will contact you.</p>
+          </Box>
+</ColumnsWraper>
+</Centered>
+          </>
+  )
+
   return (
     <>
       <Header />
