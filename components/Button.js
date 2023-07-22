@@ -4,6 +4,7 @@ export const ButtonStyle = css`
         background-color: var(--primary-color);
         font-family: 'Poppins', sans-serif;
         font-size: .8rem;
+        color: var(--text-color);
         border: 0;
         padding: .5rem 1rem;
         border-radius: .2rem;
@@ -29,6 +30,7 @@ export const ButtonStyle = css`
         &:hover {
           background-color: var(--light-success-color);
           border-color: var(--light-success-color);
+          color: white;
         }
         `}
         ${props => props.$bgColor === 'danger' && css`
@@ -53,6 +55,7 @@ export const ButtonStyle = css`
         background-color: transparent;
         border: 1px solid;
         border-color: var(--primary-color);
+        color: var(--text-color);
         &:hover {
           background-color: var(--primary-color);
           color: var(--dark-text-color);

@@ -9,6 +9,7 @@ const StyledHeader = styled.header`
     align-items: center;
     justify-content: space-between;
     padding: 1rem 2rem;
+    color: var(--text-color);
 `
 
 const Header = () => {

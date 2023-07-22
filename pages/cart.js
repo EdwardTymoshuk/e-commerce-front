@@ -86,7 +86,6 @@ const CartPage = () => {
     }
     if (window?.location.href.includes('success')) {
       setIsSuccess(true)
-      console.log(isSuccess)
       clearCart()
     }
   }, []);
