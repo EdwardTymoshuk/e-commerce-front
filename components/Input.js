@@ -1,7 +1,7 @@
 import styled from "styled-components"
 
 const StyledInput = styled.input`
-    width: 100%;
+    max-width: 100%;
     padding: 2px;
     margin-bottom: 5px;
     line-height: 2rem

@@ -12,6 +12,10 @@ export const ButtonStyle = css`
         align-items: center;
         gap: inherit;
         transition: ease-in .5;
+        &:hover {
+          background-color: var(--light-primary-color);
+          color: white;
+        }
 
         ${props => props.size === 'md' && css`
           font-size: .8rem;

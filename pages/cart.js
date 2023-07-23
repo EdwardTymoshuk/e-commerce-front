@@ -4,6 +4,7 @@ import Centered from "@/components/Centered"
 import Header from "@/components/Header"
 import Input from "@/components/Input"
 import Table from "@/components/Table"
+import WhiteBox from "@/components/WhiteBox"
 import axios from "axios"
 import { useContext, useEffect, useState } from "react"
 import { styled } from "styled-components"
@@ -13,11 +14,6 @@ const ColumnsWraper = styled.div`
     grid-template-columns: 1.3fr .7fr;
     gap: 50px;
     margin-top: 40px;
-`
-const Box = styled.div`
-    background-color: white;
-    border-radius: 10px;
-    padding: 20px;
 `
 const ProductInfoCell = styled.td`
   padding: 10px 0;
@@ -56,6 +52,9 @@ const QuantityLabel = styled.span`
 const CityHolder = styled.div`
   display:flex;
   gap: 5px;
+  input:first-child {
+    flex: 1;
+  }
 `
 
 const CartPage = () => {
@@ -113,10 +112,10 @@ const CartPage = () => {
     <Header />
     <Centered>
       <ColumnsWraper>
-          <Box>
+          <WhiteBox>
             <h3>Thanks for your order!</h3>
             <p>We will contact you.</p>
-          </Box>
+          </WhiteBox>
 </ColumnsWraper>
 </Centered>
           </>
@@ -129,7 +128,7 @@ const CartPage = () => {
         <ColumnsWraper>
           <div>
             <h2>Cart</h2>
-            <Box>
+            <WhiteBox>
               {!cartProducts?.length ?
                 <div>
                   <h3>Your cart is empty...</h3>
@@ -174,13 +173,13 @@ const CartPage = () => {
                   </tbody>
                 </Table>
               }
-            </Box>
+            </WhiteBox>
           </div>
           <div>
             {!!cartProducts.length &&
               <>
                 <h2>Order information</h2>
-                <Box>
+                <WhiteBox>
                   <Input type="text"
                      placeholder="Name"
                      value={name}
@@ -214,7 +213,7 @@ const CartPage = () => {
                      name="country"
                      onChange={ev => setCountry(ev.target.value)}/>
                     <Button block $bgColor="black" onClick={goToPayment}>Go to payment</Button>
-                </Box>
+                </WhiteBox>
               </>
 
             }
