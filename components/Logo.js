@@ -8,6 +8,8 @@ const StyledLink = styled(Link)`
     flex-direction: row;
     align-items: center;
     gap: 0.25rem;
+    position: relative;
+    z-index: 3;
 ` 
 
 const Logo = ({size}) => {

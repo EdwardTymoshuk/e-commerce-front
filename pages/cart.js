@@ -5,15 +5,25 @@ import Header from "@/components/Header"
 import Input from "@/components/Input"
 import Table from "@/components/Table"
 import WhiteBox from "@/components/WhiteBox"
+import { device } from "@/utils/devices"
 import axios from "axios"
 import { useContext, useEffect, useState } from "react"
 import { styled } from "styled-components"
 
 const ColumnsWraper = styled.div`
+  display: flex;
+  flex-direction: column;
+  &>div {
+    padding: 20px 0;
+    @media ${device.mobileXL} {
+      padding: inherit;
+    }
+  }
+    @media ${device.tablet} {
     display: grid;
     grid-template-columns: 1.3fr .7fr;
     gap: 50px;
-    margin-top: 40px;
+    }
 `
 const ProductInfoCell = styled.td`
   padding: 10px 0;
@@ -51,9 +61,16 @@ const QuantityLabel = styled.span`
 `
 const CityHolder = styled.div`
   display:flex;
+  flex-direction: column;
   gap: 5px;
-  input:first-child {
+  @media ${device.mobileXL} {
+    flex-direction: row;
+    input:first-child {
+    flex: 3;
+  }
+  input:last-child {
     flex: 1;
+  }
   }
 `
 
@@ -109,16 +126,16 @@ const CartPage = () => {
   }
   if (isSuccess) return (
     <>
-    <Header />
-    <Centered>
-      <ColumnsWraper>
+      <Header />
+      <Centered>
+        <ColumnsWraper>
           <WhiteBox>
             <h3>Thanks for your order!</h3>
             <p>We will contact you.</p>
           </WhiteBox>
-</ColumnsWraper>
-</Centered>
-          </>
+        </ColumnsWraper>
+      </Centered>
+    </>
   )
 
   return (
@@ -166,7 +183,7 @@ const CartPage = () => {
                       </tr>
                     ))}
                     <tr>
-                      <td></td>
+                      <td>Total:</td>
                       <td></td>
                       <td>${total}</td>
                     </tr>
@@ -181,38 +198,38 @@ const CartPage = () => {
                 <h2>Order information</h2>
                 <WhiteBox>
                   <Input type="text"
-                     placeholder="Name"
-                     value={name}
-                     name="name"
-                     onChange={ev => setName(ev.target.value)} />
-              <Input type="text"
-                     placeholder="Email"
-                     value={email}
-                     name="email"
-                     onChange={ev => setEmail(ev.target.value)}/>
-              <CityHolder>
-                <Input type="text"
-                       placeholder="City"
-                       value={city}
-                       name="city"
-                       onChange={ev => setCity(ev.target.value)}/>
-                <Input type="text"
-                       placeholder="Postal Code"
-                       value={postalCode}
-                       name="postalCode"
-                       onChange={ev => setPostalCode(ev.target.value)}/>
-              </CityHolder>
-              <Input type="text"
-                     placeholder="Street Address"
-                     value={streetAddress}
-                     name="streetAddress"
-                     onChange={ev => setStreetAddress(ev.target.value)}/>
-              <Input type="text"
-                     placeholder="Country"
-                     value={country}
-                     name="country"
-                     onChange={ev => setCountry(ev.target.value)}/>
-                    <Button block $bgColor="black" onClick={goToPayment}>Go to payment</Button>
+                    placeholder="Name"
+                    value={name}
+                    name="name"
+                    onChange={ev => setName(ev.target.value)} />
+                  <Input type="text"
+                    placeholder="Email"
+                    value={email}
+                    name="email"
+                    onChange={ev => setEmail(ev.target.value)} />
+                  <CityHolder>
+                    <Input type="text"
+                      placeholder="City"
+                      value={city}
+                      name="city"
+                      onChange={ev => setCity(ev.target.value)} />
+                    <Input type="text"
+                      placeholder="Postal Code"
+                      value={postalCode}
+                      name="postalCode"
+                      onChange={ev => setPostalCode(ev.target.value)} />
+                  </CityHolder>
+                  <Input type="text"
+                    placeholder="Street Address"
+                    value={streetAddress}
+                    name="streetAddress"
+                    onChange={ev => setStreetAddress(ev.target.value)} />
+                  <Input type="text"
+                    placeholder="Country"
+                    value={country}
+                    name="country"
+                    onChange={ev => setCountry(ev.target.value)} />
+                  <Button block $bgColor="black" onClick={goToPayment}>Go to payment</Button>
                 </WhiteBox>
               </>
 

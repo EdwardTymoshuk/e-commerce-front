@@ -3,13 +3,20 @@ import Header from "@/components/Header";
 import NewProducts from "@/components/NewProducts";
 import { mongooseConnect } from "@/lib/mongoose";
 import { Product } from "@/models/Product";
+import { styled } from "styled-components";
+
+const ContentContainer = styled.div`
+  padding-top: 80px; 
+`;
 
 export default function HomePage({feturedProduct, newProducts}) {
   return (
     <>
     <Header />
+    {/* <ContentContainer> */}
     <Featured product={feturedProduct}/>
     <NewProducts products={newProducts}/>
+    {/* </ContentContainer> */}
     </>
   )
 }

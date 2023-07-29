@@ -5,33 +5,47 @@ import Button from "./Button"
 import { FaCartPlus } from 'react-icons/fa'
 import ButtonLink from "./ButtonLink"
 import { CartContext } from "./CartContext"
+import { device } from "@/utils/devices"
 
 const StyledDiv = styled.div`
     display: flex;
     background-color: var(--header-color);
-    div {
-        flex-direction: column;
+    @media ${device.tablet} {
+        padding: 0;
     }
 `
 const Title = styled.h1`
     margin: 0;
     font-weight: normal;
     color: white;
+    @media ${device.laptopL} {
+        font-size: 2.2rem;
+    }
 `
 const Desc = styled.p`
     color: var(--text-color);
     font-size: .8rem;
+    @media ${device.laptopL} {
+        font-size: 1.1rem;
+    }
     `
 
 const Wrapper = styled.div`
-    display: grid;
-    grid-template-columns: .9fr 1.1fr;
+    display: flex;
+    flex-direction: column-reverse;
     gap: 2rem;
+    padding: 2rem 0;
+    @media ${device.mobileXL} {
+        display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    }
     img {
         max-width: 100%;
     }
     div {
         display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
     }

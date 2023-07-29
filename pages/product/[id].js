@@ -6,6 +6,7 @@ import ProductImages from "@/components/ProductImages"
 import WhiteBox from "@/components/WhiteBox"
 import { mongooseConnect } from "@/lib/mongoose"
 import { Product } from "@/models/Product"
+import { device } from "@/utils/devices"
 import { useContext } from "react"
 import { styled } from "styled-components"
 
@@ -14,17 +15,19 @@ const Title = styled.h2`
 `
 
 const ColWrapper = styled.div`
-    display: grid;
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0;
+    @media ${device.tablet} {
+        display: grid;
     grid-template-columns: .8fr 1.2fr;
     gap: 50px;
-    margin-top: 40px;
+    margin: 40px 0 20px;
+    }
 `
 const PriceRow = styled.div`
-  display: block;
-  @media screen and (min-width: 768px) {
-    display: flex;
+     display: flex;
     gap: 5px;
-  }
   align-items: center;
   justify-content: space-between;
   margin-top: 2px;

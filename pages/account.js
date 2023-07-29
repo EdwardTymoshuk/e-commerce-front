@@ -1,13 +1,15 @@
+import Centered from "@/components/Centered"
 import Header from "@/components/Header"
 
 const AccountPage = () => {
-    return (
-      <>
+  return (
+    <>
       <Header />
+      <Centered>
         <h1>Account</h1>
-      </>
-    )
-  }
-  
-  export default AccountPage
-  
+      </Centered>
+    </>
+  )
+}
+
+export default AccountPage

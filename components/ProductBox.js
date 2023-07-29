@@ -1,9 +1,9 @@
 import Link from "next/link"
 import styled from "styled-components"
 import Button from "./Button"
-import { FaCartPlus } from "react-icons/fa"
 import { useContext } from "react"
 import { CartContext } from "./CartContext"
+import { device } from "@/utils/devices"
 
 const ProductWrapper = styled.div`
   
@@ -20,7 +20,7 @@ const ImageBox = styled(Link)`
   border-radius: 10px;
   img{
     max-width: 100%;
-    max-height: 130px;
+    max-height: 160px;
   }
 `
 
@@ -30,22 +30,22 @@ const ProductInfoBox = styled.div`
 `
 
 const PriceRow = styled.div`
-  display: block;
-  @media screen and (min-width: 768px) {
-    display: flex;
-    gap: 5px;
-  }
+  display: grid;
   align-items: center;
+  padding-top: 5px;
+  @media ${device.mobileL} {
+    display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-top: 2px;
+  }
 `
 
 const Price = styled.div`
   font-size: 1rem;
-  font-weight: 200;
-  text-align: right;
+  font-weight: 500;
   color: var(--dark-text-color);
-  @media screen and (min-width: 768px) {
+  @media ${device.mobileL}  {
     font-size: 1.1rem;
     font-weight: 500;
     text-align: left;

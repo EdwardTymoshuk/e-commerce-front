@@ -9,9 +9,10 @@ export const ButtonStyle = css`
         padding: .5rem 1rem;
         border-radius: .2rem;
         display: inline-flex;
+        justify-content: center;
         align-items: center;
         gap: inherit;
-        transition: ease-in .5;
+        transition: ease-in 0.07s;
         &:hover {
           background-color: var(--light-primary-color);
           color: white;
