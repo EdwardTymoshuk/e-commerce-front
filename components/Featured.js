@@ -41,7 +41,8 @@ const Wrapper = styled.div`
     gap: 2rem;
     }
     img {
-        max-width: 100%;
+        width: 100%;
+        max-width: 350px;
     }
     div {
         display: flex;
@@ -60,14 +61,18 @@ const Featured = ({product}) => {
     const addToCart = () => {
         addProduct (product._id)
     }
-    const {title, _id, images} = product
+    const {title, _id, images, description} = product
+    const shortDescription = description
+            .split('<h2><strong>Description:</strong></h2>')[1]
+            .split('</span>')[0]
+            .replace(/<p><span style="color: rgb\(4, 12, 19\);">/g, '')
     return (
         <StyledDiv>
             <Centered>
             <Wrapper>
                 <div>
                 <Title>{title}</Title>
-                <Desc>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quo sapiente nostrum eaque doloremque nemo dignissimos earum voluptatem dolor eveniet ex maiores non eos nobis commodi, sequi eius, enim itaque eligendi.</Desc>
+                <Desc>{shortDescription}</Desc>
                 <div>
                 <ButtonLink href={'/product/'+_id} $outliner={1} size="l">Read more</ButtonLink>
                 <Button onClick={addToCart} size="l" $bgColor="success"><FaCartPlus style={{height: "1rem"}}/> Add to cart</Button>

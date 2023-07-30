@@ -10,7 +10,7 @@ import { device } from "@/utils/devices"
 import { useContext } from "react"
 import { styled } from "styled-components"
 
-const Title = styled.h2`
+const Title = styled.h1`
     text-align: center;
 `
 
@@ -34,12 +34,12 @@ const PriceRow = styled.div`
 `
 
 const Price = styled.div`
-  font-size: 1rem;
-  font-weight: 200;
+  font-size: 1.8rem;
+  font-weight: 600;
   text-align: right;
   color: var(--dark-text-color);
   @media screen and (min-width: 768px) {
-    font-size: 1.1rem;
+    font-size: 1.6rem;
     font-weight: 500;
     text-align: left;
   }
@@ -48,6 +48,11 @@ const Price = styled.div`
 const ProductPage = ({ product }) => {
     const { _id, title, description, images, price } = product
     const {addProduct} = useContext(CartContext)
+
+    const createMarkup = () => {
+        return { __html: description };
+      }
+
     return (
         <>
             <Header />
@@ -59,7 +64,7 @@ const ProductPage = ({ product }) => {
                     </WhiteBox>
                     <div>
                         <Title>{title}</Title>
-                        <p>{description}</p>
+                        <p dangerouslySetInnerHTML={createMarkup()} />
                         <PriceRow>
                     <Price>
                         ${price}

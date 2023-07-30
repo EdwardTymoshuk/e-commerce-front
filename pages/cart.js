@@ -9,15 +9,13 @@ import { device } from "@/utils/devices"
 import axios from "axios"
 import { useContext, useEffect, useState } from "react"
 import { styled } from "styled-components"
+import { BsFillHeartFill } from 'react-icons/bs'
 
 const ColumnsWraper = styled.div`
   display: flex;
   flex-direction: column;
   &>div {
     padding: 20px 0;
-    @media ${device.mobileXL} {
-      padding: inherit;
-    }
   }
     @media ${device.tablet} {
     display: grid;
@@ -71,6 +69,32 @@ const CityHolder = styled.div`
   input:last-child {
     flex: 1;
   }
+  }
+`
+
+const ThanksWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+  text-align: center;
+  &>div {
+      padding: 20px;
+      @media ${device.mobileM} {
+      padding: 50px;
+    }
+    @media ${device.tablet} {
+      padding: 50px 100px;
+    }
+  }
+  &>div>h3 {
+    margin: 0;
+  }
+  &>div>p {
+    text-align: center;
+    color: var(--danger-color);
+    margin: 1rem;
   }
 `
 
@@ -128,12 +152,14 @@ const CartPage = () => {
     <>
       <Header />
       <Centered>
-        <ColumnsWraper>
+        <ThanksWrapper>
           <WhiteBox>
             <h3>Thanks for your order!</h3>
-            <p>We will contact you.</p>
+            <span>Have an awesome day and come back soon!</span>
+            <p><BsFillHeartFill /></p>
+            <span>Forgot something ? Check our <a style={{color: "var(--primary-color)"}} href="/products">products!</a></span>
           </WhiteBox>
-        </ColumnsWraper>
+          </ThanksWrapper>
       </Centered>
     </>
   )
