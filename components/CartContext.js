@@ -1,8 +1,9 @@
 import { createContext, useEffect, useState } from "react"
+import { toast } from "react-hot-toast"
 
 export const CartContext = createContext({})
 
-const CartContextProvider = ({ children }) => {
+const CartContextProvider = ({ children, product }) => {
     const ls = typeof window !== 'undefined' ? localStorage : null
     const [cartProducts, setCartProducts] = useState([])
     useEffect(() => {
@@ -15,6 +16,7 @@ const CartContextProvider = ({ children }) => {
     }, [])
     const addProduct = (productId) => {
         setCartProducts(prev => [...prev, productId])
+        toast.success(`The product has been added to the cart.`)
     }
 
     const removeProduct = (productId) => {

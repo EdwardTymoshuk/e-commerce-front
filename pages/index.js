@@ -18,7 +18,7 @@ export default function HomePage({feturedProduct, newProducts}) {
     const featuredProductId = '64c64322c836036fc1370584'
     await mongooseConnect()
     const feturedProduct = await Product.findById(featuredProductId)
-    const newProducts = await Product.find({}, null, {sort: {'_id': -1}, limit: 10})
+    const newProducts = await Product.find({}, null, {sort: {'_id': -1}, limit: 8})
     return {
       props: {
         feturedProduct: JSON.parse(JSON.stringify(feturedProduct)),

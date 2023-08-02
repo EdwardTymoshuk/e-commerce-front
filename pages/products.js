@@ -1,37 +1,177 @@
+import Button from "@/components/Button"
 import Centered from "@/components/Centered"
 import Header from "@/components/Header"
 import ProductsGrid from "@/components/ProductsGrid"
 import { mongooseConnect } from "@/lib/mongoose"
 import { Product } from "@/models/Product"
 import { styled } from "styled-components"
+import { BsSearch } from 'react-icons/bs'
+import { useState } from "react"
+import { Category } from "@/models/Category"
+import { device } from "@/utils/devices"
 
-const Title = styled.h1`
-    /* color: var(--dark-text-color); */
-` 
+const Wrapper = styled.div`
+  display: flex;
+  gap: 1rem;
+`
 
-const productsPage = ({products}) => {
+const SideBar = styled.div`
+  width: 35%;
+  padding: 1rem;
+  border-right: 1px solid var(--text-color);
+  height: fit-content;
+`
+
+const SearchBar = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  @media ${device.mobileXL} {
+    flex-direction: row;
+  }
+  input {
+    height: 2rem;
+  }
+`
+
+const FiltersBar = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+`
+
+const ProductsPage = ({ products, categories }) => {
+  const [filteredProducts, setFilteredProducts] = useState(products)
+  const [chosenCategory, setChosenCategory] = useState('')
+  const [chosenColor, setChosenColor] = useState('')
+
+  const uniqueColorsSet = new Set()
+
+  categories.forEach((item) => {
+    if (item.properties && Array.isArray(item.properties)) {
+      item.properties.forEach(({ name, values }) => {
+        if (name === 'Color' && Array.isArray(values)) {
+          values.forEach((color) => {
+            const trimmedColor = color.trim().toLowerCase()
+            uniqueColorsSet.add(trimmedColor)
+          })
+        }
+      })
+    }
+  })
+
+  const uniqueColorsArray = Array.from(uniqueColorsSet).sort((a, b) =>
+    a.localeCompare(b, 'en', { sensitivity: 'base' })
+  )
+
+  const searchProduct = (e) => {
+    const searchTerm = e.target.value.toLowerCase()
+    setChosenCategory(searchTerm)
+
+    // Apply category and color filtering simultaneously
+    const filteredProducts = products.filter((item) => {
+      const categoryMatches = searchTerm === '' || item.title.toLowerCase().includes(searchTerm)
+      const colorMatches = chosenColor === '' || item.title.toLowerCase().includes(chosenColor)
+      return categoryMatches && colorMatches
+    })
+
+    setFilteredProducts(filteredProducts)
+  }
+
+  const searchProductByColor = (e) => {
+    const searchTerm = e.target.value.toLowerCase()
+    setChosenColor(searchTerm)
+
+    // Apply category and color filtering simultaneously
+    const filteredProducts = products.filter((item) => {
+      const categoryMatches = chosenCategory === '' || item.title.toLowerCase().includes(chosenCategory)
+      const colorMatches = searchTerm === '' || item.title.toLowerCase().includes(searchTerm)
+      return categoryMatches && colorMatches
+    })
+
+    setFilteredProducts(filteredProducts)
+  }
+
   return (
     <div>
       <>
         <Header />
-        <Centered  >
-        <Title>All products</Title>
-        <ProductsGrid products={products} />
+        <Centered>
+          <h1>All products</h1>
+          <Wrapper>
+            <SideBar>
+              <SearchBar>
+                <input type="text" onChange={searchProduct} />
+                <Button><BsSearch /></Button>
+              </SearchBar>
+              <FiltersBar>
+                <h3>Category: </h3>
+                <label>
+                  <input
+                    type="radio"
+                    name="category"
+                    value=""
+                    onChange={searchProduct}
+                    checked={chosenCategory === ''}
+                  />
+                  All
+                </label>
+                {categories.map(({ name, parentCategory }) => (
+                  !parentCategory &&
+                  <label key={name}>
+                    <input
+                      type="radio"
+                      name="category"
+                      value={name}
+                      onChange={searchProduct}
+                      checked={chosenCategory === name.toLowerCase()}
+                    />
+                    {name}
+                  </label>
+                ))}
+                <h3>Color: </h3>
+                <label>
+                  <input
+                    type="radio"
+                    name="color"
+                    value=""
+                    onChange={searchProductByColor}
+                    checked={chosenColor === ''}
+                  />
+                  All
+                </label>
+                {uniqueColorsArray.map((color) => (
+                  <label key={color}>
+                    <input
+                      type="radio"
+                      name="color"
+                      value={color}
+                      onChange={searchProductByColor}
+                      checked={chosenColor === color}
+                    />
+                    {color}
+                  </label>
+                ))}
+              </FiltersBar>
+            </SideBar>
+            <ProductsGrid products={filteredProducts} />
+          </Wrapper>
         </Centered>
-        
       </>
     </div>
   )
 }
 
-export default productsPage
+export default ProductsPage
 
 export const getServerSideProps = async () => {
-    await mongooseConnect()
-    const products = await Product.find({}, null, {sort: {'_id': -1}})
-    return {
-        props: {
-            products: JSON.parse(JSON.stringify(products)),
-        }
-    }
+  await mongooseConnect()
+  const products = await Product.find({}, null, { sort: { '_id': -1 } })
+  const categories = await Category.find({}, null, { sort: { '_id': -1 } })
+  return {
+    props: {
+      products: JSON.parse(JSON.stringify(products)),
+      categories: JSON.parse(JSON.stringify(categories)),
+    },
+  }
 }

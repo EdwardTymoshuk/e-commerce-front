@@ -45,8 +45,6 @@ const Nav = ({mobileNavActive}) => {
         <StyledNav mobileNavActive={mobileNavActive}>
             <Link href={'/'}>Home</Link>
             <Link href={'/products'}>Products</Link>
-            <Link href={'/categories'}>Categories</Link>
-            <Link href={'/account'}>Account</Link>
             <Link href={'/cart'}>Cart ({cartProducts.length})</Link>
         </StyledNav>
     )

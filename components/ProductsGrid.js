@@ -4,25 +4,29 @@ import { device } from "@/utils/devices"
 
 
 const StyledProductsGrid = styled.div`
-     display: grid;
+  display: grid;
   grid-template-columns: repeat(1, 1fr);
   gap: .75rem;
   padding: 1rem 0;
+  width: 100%;
   @media ${device.mobileL} {
     grid-template-columns: repeat(2, 1fr);
   }
   @media ${device.tablet} {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @media ${device.laptop} {
     grid-template-columns: repeat(4, 1fr);
   }
 `
 
-const ProductsGrid = ({products}) => { 
-    
+const ProductsGrid = ({ products }) => {
+
   return (
     <StyledProductsGrid>
-       {products?.length > 0 && products.map(item => (
-            <ProductBox key={item._id} {...item}/>
-          ))}
+      {products?.length > 0 && products.map(item => (
+        <ProductBox key={item._id} {...item} />
+      ))}
     </StyledProductsGrid>
   )
 }
