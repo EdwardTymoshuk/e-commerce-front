@@ -6,7 +6,7 @@ import { CartContext } from "./CartContext"
 import { device } from "@/utils/devices"
 
 const ProductWrapper = styled.div`
-  
+    max-width: 200px;
 `
 
 const ImageBox = styled(Link)`

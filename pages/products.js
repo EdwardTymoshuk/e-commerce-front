@@ -13,10 +13,11 @@ import { device } from "@/utils/devices"
 const Wrapper = styled.div`
   display: flex;
   gap: 1rem;
+  flex-direction: column;
 `
 
 const SideBar = styled.div`
-  width: 35%;
+  max-width: 35%;
   padding: 1rem;
   border-right: 1px solid var(--text-color);
   height: fit-content;
@@ -91,7 +92,6 @@ const ProductsPage = ({ products, categories }) => {
 
     setFilteredProducts(filteredProducts)
   }
-
   return (
     <div>
       <>

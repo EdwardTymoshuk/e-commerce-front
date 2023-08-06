@@ -17,7 +17,6 @@ export const ButtonStyle = css`
           background-color: var(--light-primary-color);
           color: white;
         }
-
         ${props => props.size === 'md' && css`
           font-size: .8rem;
         `}
@@ -61,6 +60,16 @@ export const ButtonStyle = css`
         border: 1px solid;
         border-color: var(--primary-color);
         color: var(--text-color);
+        &:hover {
+          background-color: var(--primary-color);
+          color: var(--dark-text-color);
+        }
+        `}
+        ${props => props.$active === 'false' && css`
+        background-color: transparent;
+        border: 1px solid;
+        border-color: var(--primary-color);
+        color: var(--primary-color);
         &:hover {
           background-color: var(--primary-color);
           color: var(--dark-text-color);
