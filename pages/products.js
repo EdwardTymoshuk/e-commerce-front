@@ -14,13 +14,28 @@ const Wrapper = styled.div`
   display: flex;
   gap: 1rem;
   flex-direction: column;
+  @media ${device.tablet} {
+    flex-direction: row;
+  }
 `
-
 const SideBar = styled.div`
-  max-width: 35%;
-  padding: 1rem;
-  border-right: 1px solid var(--text-color);
-  height: fit-content;
+    display: ${props => (props.activeFilterButton ? 'block' : 'none')};
+  @media ${device.tablet} {
+    display: block;
+    max-width: 35%;
+    padding: 1rem;
+    border-right: 1px solid var(--text-color);
+    height: fit-content;
+  }
+`
+const SideBarButton = styled.div`
+      display: flex;
+      button {
+        width: 100%;
+      }
+  @media ${device.tablet} {
+    display: none;
+  }
 `
 
 const SearchBar = styled.div`
@@ -34,7 +49,6 @@ const SearchBar = styled.div`
     height: 2rem;
   }
 `
-
 const FiltersBar = styled.div`
   display: flex;
   flex-direction: column;
@@ -45,6 +59,7 @@ const ProductsPage = ({ products, categories }) => {
   const [filteredProducts, setFilteredProducts] = useState(products)
   const [chosenCategory, setChosenCategory] = useState('')
   const [chosenColor, setChosenColor] = useState('')
+  const [ activeFilterButton, setActiveFilterButton ] = useState(false)
 
   const uniqueColorsSet = new Set()
 
@@ -99,7 +114,10 @@ const ProductsPage = ({ products, categories }) => {
         <Centered>
           <h1>All products</h1>
           <Wrapper>
-            <SideBar>
+            <SideBarButton>
+              <Button onClick={() => setActiveFilterButton(prev => !prev)}>Filter</Button>
+            </SideBarButton>
+            <SideBar activeFilterButton={activeFilterButton}>
               <SearchBar>
                 <input type="text" onChange={searchProduct} />
                 <Button><BsSearch /></Button>
