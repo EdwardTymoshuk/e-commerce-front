@@ -19,7 +19,7 @@ const NewProducts = ({products}) => {
     <div>
       <Centered> 
       <Title>New Arrivals</Title>
-        <ProductsGrid products={products} />
+        <ProductsGrid products={products} pagination={false} currentPage={1}/>
       </Centered>
     </div>
   )

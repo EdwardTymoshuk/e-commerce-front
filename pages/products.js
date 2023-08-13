@@ -56,11 +56,11 @@ const FiltersBar = styled.div`
 `
 
 const ProductsPage = ({ products, categories }) => {
+  const [currentPage, setCurrentPage] = useState(1)
   const [filteredProducts, setFilteredProducts] = useState(products)
   const [chosenCategory, setChosenCategory] = useState('')
   const [chosenColor, setChosenColor] = useState('')
   const [ activeFilterButton, setActiveFilterButton ] = useState(false)
-
   const uniqueColorsSet = new Set()
 
   categories.forEach((item) => {
@@ -82,6 +82,7 @@ const ProductsPage = ({ products, categories }) => {
 
   const searchProduct = (e) => {
     const searchTerm = e.target.value.toLowerCase()
+    setCurrentPage(1)
     setChosenCategory(searchTerm)
 
     // Apply category and color filtering simultaneously
@@ -96,6 +97,7 @@ const ProductsPage = ({ products, categories }) => {
 
   const searchProductByColor = (e) => {
     const searchTerm = e.target.value.toLowerCase()
+    setCurrentPage(1)
     setChosenColor(searchTerm)
 
     // Apply category and color filtering simultaneously
@@ -172,7 +174,7 @@ const ProductsPage = ({ products, categories }) => {
                 ))}
               </FiltersBar>
             </SideBar>
-            <ProductsGrid products={filteredProducts} />
+            <ProductsGrid products={filteredProducts} pagination={true} currentPage={currentPage} setCurrentPage={setCurrentPage}/>
           </Wrapper>
         </Centered>
       </>
