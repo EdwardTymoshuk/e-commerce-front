@@ -1,12 +1,21 @@
-import { styled } from "styled-components"
+import styled from "styled-components"
 import Button from "./Button"
+import { device } from "@/utils/devices"
 
 const PaginationWrapper = styled.div`
   display: flex;
   align-self: center;
-  gap: 0.5rem;
-  padding: 20px;
-
+  gap: 0.1rem;
+  padding: 10px;
+  button {
+    padding: .3rem 0.7rem;
+  }
+  @media ${device.mobileXL} {
+    padding: 20px;
+    button {
+      padding: 0.5rem 1rem;
+    }
+  }
 `
 
 const Pagination = ({handlePageChange, totalPages, currentPage}) => {
@@ -73,4 +82,4 @@ const Pagination = ({handlePageChange, totalPages, currentPage}) => {
     )
 }
 
-export default Pagination
+export default Pagination 

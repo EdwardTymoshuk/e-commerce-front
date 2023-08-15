@@ -5,7 +5,7 @@ export const ButtonStyle = css`
         font-family: 'Poppins', sans-serif;
         font-size: .8rem;
         color: var(--text-color);
-        border: 0;
+        border: 1px solid var(--primary-color);
         padding: .5rem 1rem;
         border-radius: .2rem;
         display: inline-flex;

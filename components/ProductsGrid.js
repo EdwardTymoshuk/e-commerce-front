@@ -7,11 +7,14 @@ import Pagination from "./Pagination"
 const ProductsGridWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
 `
 
 const StyledProductsGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(1, 1fr);
+  justify-items: center;
+
   gap: 0.75rem;
   padding: 1rem 0;
   width: 100%;
@@ -28,7 +31,7 @@ const StyledProductsGrid = styled.div`
 
 
 const ProductsGrid = ({ products, pagination, currentPage, setCurrentPage}) => {
-  const productsPerPage = 8
+  const productsPerPage = 4
   const indexOfLastProduct = currentPage * productsPerPage
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage
   const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct)
@@ -49,7 +52,7 @@ const ProductsGrid = ({ products, pagination, currentPage, setCurrentPage}) => {
           ))}
       </StyledProductsGrid>
 {      totalPages > 1 &&
-    pagination && <Pagination handlePageChange={handlePageChange} totalPages={totalPages} currentPage={currentPage}/>
+    pagination && <Pagination handlePageChange={handlePageChange} totalPages={totalPages} currentPage={currentPage} />
 }
     </ProductsGridWrapper>
   )
