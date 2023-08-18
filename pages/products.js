@@ -14,13 +14,13 @@ const Wrapper = styled.div`
   display: flex;
   gap: 1rem;
   flex-direction: column;
-  @media ${device.tablet} {
+  @media ${device.mobileXL} {
     flex-direction: row;
   }
 `
 const SideBar = styled.div`
     display: ${props => (props.activeFilterButton ? 'block' : 'none')};
-  @media ${device.tablet} {
+  @media ${device.mobileXL} {
     display: block;
     max-width: 35%;
     padding: 1rem;
@@ -33,7 +33,7 @@ const SideBarButton = styled.div`
       button {
         width: 100%;
       }
-  @media ${device.tablet} {
+  @media ${device.mobileXL} {
     display: none;
   }
 `
@@ -60,7 +60,7 @@ const ProductsPage = ({ products, categories }) => {
   const [filteredProducts, setFilteredProducts] = useState(products)
   const [chosenCategory, setChosenCategory] = useState('')
   const [chosenColor, setChosenColor] = useState('')
-  const [ activeFilterButton, setActiveFilterButton ] = useState(false)
+  const [activeFilterButton, setActiveFilterButton] = useState(false)
   const uniqueColorsSet = new Set()
 
   categories.forEach((item) => {
@@ -174,7 +174,7 @@ const ProductsPage = ({ products, categories }) => {
                 ))}
               </FiltersBar>
             </SideBar>
-            <ProductsGrid products={filteredProducts} pagination={true} currentPage={currentPage} setCurrentPage={setCurrentPage}/>
+            <ProductsGrid products={filteredProducts} pagination={true} currentPage={currentPage} setCurrentPage={setCurrentPage} />
           </Wrapper>
         </Centered>
       </>

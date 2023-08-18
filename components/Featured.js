@@ -59,7 +59,7 @@ const Wrapper = styled.div`
 const Featured = ({product}) => {
     const {addProduct} = useContext(CartContext)
     const addToCart = () => {
-        addProduct (product._id)
+        addProduct (product._id, true)
     }
     const {title, _id, images, description} = product
     const shortDescription = description

@@ -69,7 +69,7 @@ const ProductPage = ({ product }) => {
                     <Price>
                         ${price}
                     </Price>
-                    <Button onClick={() => addProduct(_id)} size="s" $bgColor="success">Add to cart</Button>
+                    <Button onClick={() => addProduct(_id, true)} size="s" $bgColor="success">Add to cart</Button>
                 </PriceRow>
                     </div>
                 </ColWrapper>

@@ -14,9 +14,9 @@ const CartContextProvider = ({ children, product }) => {
     useEffect(() => {
         ls && ls.getItem('cart') && setCartProducts(JSON.parse(ls.getItem('cart')))
     }, [])
-    const addProduct = (productId) => {
+    const addProduct = (productId, isToast) => {
         setCartProducts(prev => [...prev, productId])
-        toast.success(`The product has been added to the cart.`)
+        isToast && toast.success(`The product has been added to the cart.`)
     }
 
     const removeProduct = (productId) => {

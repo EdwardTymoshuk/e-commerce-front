@@ -7,6 +7,7 @@ import { device } from "@/utils/devices"
 
 const ProductWrapper = styled.div`
     max-width: 200px;
+    width: 100%;
 `
 
 const ImageBox = styled(Link)`
@@ -75,7 +76,7 @@ const ProductBox = ({ _id, title, description, price, images }) => {
                     <Price>
                         ${price}
                     </Price>
-                    <Button onClick={() => addProduct(_id)} size="s" $bgColor="success">Add to cart</Button>
+                    <Button onClick={() => addProduct(_id, true)} size="s" $bgColor="success">Add to cart</Button>
                 </PriceRow>
             </ProductInfoBox>
         </ProductWrapper>

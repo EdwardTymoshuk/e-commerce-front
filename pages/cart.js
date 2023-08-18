@@ -131,7 +131,7 @@ const CartPage = () => {
   }, []);
 
   const moreOfThisProduct = (id) => (
-    addProduct(id)
+    addProduct(id, false)
   )
   const lessOfThisProduct = (id) => (
     removeProduct(id)
