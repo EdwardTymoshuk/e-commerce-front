@@ -81,33 +81,32 @@ const ProductsPage = ({ products, categories }) => {
   )
 
   const searchProduct = (e) => {
-    const searchTerm = e.target.value.toLowerCase()
+    const searchTerm = e.target.value.toLowerCase().trim()
     setCurrentPage(1)
     setChosenCategory(searchTerm)
 
     // Apply category and color filtering simultaneously
-    const filteredProducts = products.filter((item) => {
+    const newFilteredProducts = products.filter((item) => {
       const categoryMatches = searchTerm === '' || item.title.toLowerCase().includes(searchTerm)
-      const colorMatches = chosenColor === '' || item.title.toLowerCase().includes(chosenColor)
+      const colorMatches = chosenColor === '' || item.properties.Color.toLowerCase().includes(chosenColor)
       return categoryMatches && colorMatches
     })
 
-    setFilteredProducts(filteredProducts)
+    setFilteredProducts(newFilteredProducts)
   }
 
   const searchProductByColor = (e) => {
-    const searchTerm = e.target.value.toLowerCase()
+    const searchTerm = e.target.value.toLowerCase().trim()
     setCurrentPage(1)
     setChosenColor(searchTerm)
-
     // Apply category and color filtering simultaneously
-    const filteredProducts = products.filter((item) => {
+    const newFilteredProducts = products.filter((item) => {
       const categoryMatches = chosenCategory === '' || item.title.toLowerCase().includes(chosenCategory)
-      const colorMatches = searchTerm === '' || item.title.toLowerCase().includes(searchTerm)
+      const colorMatches = searchTerm === '' || item.properties.Color.toLowerCase().includes(searchTerm)
       return categoryMatches && colorMatches
     })
 
-    setFilteredProducts(filteredProducts)
+    setFilteredProducts(newFilteredProducts)
   }
   return (
     <div>
