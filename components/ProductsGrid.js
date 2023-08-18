@@ -15,18 +15,20 @@ const StyledProductsGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   justify-items: center;
-
-  gap: 0.75rem;
+  gap: 2rem;
   padding: 1rem 0;
   width: 100%;
   @media ${device.mobileL} {
     grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
   }
   @media ${device.tablet} {
     grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
   }
   @media ${device.laptop} {
     grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
   }
 `
 

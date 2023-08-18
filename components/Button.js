@@ -1,3 +1,4 @@
+import { device } from "@/utils/devices"
 import styled, { css } from "styled-components"
 
 export const ButtonStyle = css`
@@ -6,13 +7,16 @@ export const ButtonStyle = css`
         font-size: .8rem;
         color: var(--text-color);
         border: 1px solid var(--primary-color);
-        padding: .5rem 1rem;
+        padding: .3rem .8rem;
         border-radius: .2rem;
         display: inline-flex;
         justify-content: center;
         align-items: center;
         gap: inherit;
         transition: ease-in 0.07s;
+        @media ${device.tablet} {
+          padding: .5rem 1rem;
+        }
         &:hover {
           background-color: var(--light-primary-color);
           color: white;
