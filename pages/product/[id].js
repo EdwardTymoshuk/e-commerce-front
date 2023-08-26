@@ -1,7 +1,9 @@
 import Button from "@/components/Button"
 import { CartContext } from "@/components/CartContext"
 import Centered from "@/components/Centered"
+import Footer from "@/components/Footer"
 import Header from "@/components/Header"
+import PageWrapper from "@/components/PageWrapper"
 import ProductImages from "@/components/ProductImages"
 import WhiteBox from "@/components/WhiteBox"
 import { mongooseConnect } from "@/lib/mongoose"
@@ -54,7 +56,7 @@ const ProductPage = ({ product }) => {
       }
 
     return (
-        <>
+        <PageWrapper>
             <Header />
             <Centered>
                 <h1>Product</h1>
@@ -74,7 +76,8 @@ const ProductPage = ({ product }) => {
                     </div>
                 </ColWrapper>
             </Centered>
-        </>
+            <Footer />
+        </PageWrapper>
     )
 }
 

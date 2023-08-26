@@ -21,6 +21,7 @@ export const GlobalStyles = createGlobalStyle`
     color: var(--dark-text-color);
     background-color: var(--bg-color);
     font-family: 'Roboto', sans-serif;
+    min-height: 100vh;
   }
   a{
     text-decoration: none;

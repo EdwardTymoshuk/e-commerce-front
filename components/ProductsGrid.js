@@ -34,7 +34,7 @@ const StyledProductsGrid = styled.div`
 
 
 const ProductsGrid = ({ products, pagination, currentPage, setCurrentPage}) => {
-  const productsPerPage = 4
+  const productsPerPage = 8
   const indexOfLastProduct = currentPage * productsPerPage
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage
   const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct)

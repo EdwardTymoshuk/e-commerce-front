@@ -10,6 +10,8 @@ import axios from "axios"
 import { useContext, useEffect, useState } from "react"
 import { styled } from "styled-components"
 import { BsFillHeartFill } from 'react-icons/bs'
+import Footer from "@/components/Footer"
+import PageWrapper from "@/components/PageWrapper"
 
 const ColumnsWraper = styled.div`
   display: flex;
@@ -149,7 +151,7 @@ const CartPage = () => {
     total += price
   }
   if (isSuccess) return (
-    <>
+    <PageWrapper>
       <Header />
       <Centered>
         <ThanksWrapper>
@@ -161,11 +163,12 @@ const CartPage = () => {
           </WhiteBox>
           </ThanksWrapper>
       </Centered>
-    </>
+      <Footer />
+    </PageWrapper>
   )
 
   return (
-    <>
+    <PageWrapper>
       <Header />
       <Centered>
         <ColumnsWraper>
@@ -263,7 +266,8 @@ const CartPage = () => {
           </div>
         </ColumnsWraper>
       </Centered>
-    </>
+      <Footer />
+    </PageWrapper>
   )
 }
 

@@ -9,6 +9,8 @@ import { BsSearch } from 'react-icons/bs'
 import { useState } from "react"
 import { Category } from "@/models/Category"
 import { device } from "@/utils/devices"
+import Footer from "@/components/Footer"
+import PageWrapper from "@/components/PageWrapper"
 
 const Wrapper = styled.div`
   display: flex;
@@ -109,8 +111,7 @@ const ProductsPage = ({ products, categories }) => {
     setFilteredProducts(newFilteredProducts)
   }
   return (
-    <div>
-      <>
+      <PageWrapper>
         <Header />
         <Centered>
           <h1>All products</h1>
@@ -176,8 +177,8 @@ const ProductsPage = ({ products, categories }) => {
             <ProductsGrid products={filteredProducts} pagination={true} currentPage={currentPage} setCurrentPage={setCurrentPage} />
           </Wrapper>
         </Centered>
-      </>
-    </div>
+        <Footer />
+      </PageWrapper>
   )
 }
 

@@ -1,16 +1,19 @@
 import Featured from "@/components/Featured";
+import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import NewProducts from "@/components/NewProducts";
+import PageWrapper from "@/components/PageWrapper";
 import { mongooseConnect } from "@/lib/mongoose";
 import { Product } from "@/models/Product";
 
 export default function HomePage({feturedProduct, newProducts}) {
   return (
-    <>
+    <PageWrapper>
     <Header />
     <Featured product={feturedProduct}/>
     <NewProducts products={newProducts}/>
-    </>
+    <Footer />
+    </PageWrapper>
   )
 }
 
