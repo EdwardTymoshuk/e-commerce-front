@@ -63,15 +63,26 @@ const CityHolder = styled.div`
   display:flex;
   flex-direction: column;
   gap: 5px;
-  @media ${device.mobileXL} {
+  @media ${device.mobileM} {
     flex-direction: row;
-    input:first-child {
+    div:first-child {
     flex: 3;
   }
-  input:last-child {
+  div:last-child {
     flex: 1;
   }
   }
+`
+const CityHolderInputWrapper = styled.div`
+  display:flex;
+  flex-direction: column;
+`
+
+const ErrorMessage = styled.span`
+  color: var(--danger-color);
+  font-size: small;
+  padding-bottom: 5px;
+  margin: 0;
 `
 
 const ThanksWrapper = styled.div`
@@ -109,6 +120,20 @@ const CartPage = () => {
   const [postalCode, setPostalCode] = useState('')
   const [streetAddress, setStreetAddress] = useState('')
   const [country, setCountry] = useState('')
+  const [nameError, setNameError] = useState('')
+const [emailError, setEmailError] = useState('')
+const [cityError, setCityError] = useState('')
+const [postalCodeError, setPostalCodeError] = useState('')
+const [streetAddressError, setStreetAddressError] = useState('')
+const [countryError, setCountryError] = useState('')
+const [inputError, setInputError] = useState({
+  name: false,
+  email: false,
+  city: false,
+  postalCode: false,
+  streetAddress: false,
+  country: false,
+})
   const [isSuccess, setIsSuccess] = useState(false)
 
   useEffect(() => {
@@ -130,21 +155,162 @@ const CartPage = () => {
       setIsSuccess(true)
       clearCart()
     }
-  }, []);
+  }, [])
 
   const moreOfThisProduct = (id) => (
     addProduct(id, false)
   )
+
   const lessOfThisProduct = (id) => (
     removeProduct(id)
   )
+
+  const validateName = () => {
+    let isValid = true
+    if (!name) {
+      setNameError('Name is required')
+      setInputError((prevState) => ({ ...prevState, name: true }))
+      isValid = false
+    } else if (name.length < 2) {
+      setNameError('Name must be at least 3 characters')
+      setInputError((prevState) => ({ ...prevState, name: true }))
+      isValid = false
+    } else if (name.length > 50) {
+      setNameError('Name must be less than 50 characters')
+      setInputError((prevState) => ({ ...prevState, name: true }))
+      isValid = false
+    } else {
+      setNameError('')
+      setInputError((prevState) => ({ ...prevState, name: false }))
+    }
+    return isValid
+  }
+
+  const validateEmail = () => {
+    let isValid = true
+    let validEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+    if (!email) {
+      setEmailError('Email is required')
+      setInputError((prevState) => ({ ...prevState, email: true }))
+      isValid = false
+    } else if (!email.match(validEmail)) {
+      setEmailError('Invalid e-mail format')
+      setInputError((prevState) => ({ ...prevState, email: true }))
+      isValid = false
+    } else if (email.length < 5) {
+      setEmailError('Email must be at least 3 characters')
+      setInputError((prevState) => ({ ...prevState, email: true }))
+      isValid = false
+    } else if (email.length > 75) {
+      setEmailError('Email must be less than 75 characters')
+      setInputError((prevState) => ({ ...prevState, email: true }))
+      isValid = false
+    }  else {
+      setEmailError('')
+      setInputError((prevState) => ({ ...prevState, email: false }))
+    }
+    return isValid
+  }
+  const validateCity = () => {
+    let isValid = true
+    if (!city) {
+      setCityError('City is required')
+      setInputError((prevState) => ({ ...prevState, city: true }))
+      isValid = false
+    } else if (city.length < 3) {
+      setCityError('City must be at least 3 characters')
+      setInputError((prevState) => ({ ...prevState, city: true }))
+      isValid = false
+    } else if (city.length > 50) {
+      setCityError('City must be less than 50 characters')
+      setInputError((prevState) => ({ ...prevState, city: true }))
+      isValid = false
+    }  else {
+      setCityError('')
+      setInputError((prevState) => ({ ...prevState, city: false }))
+    }
+    return isValid
+  }
+  const validatePostalCode = () => {
+    let isValid = true
+    let validPostalCode = /(^\d{5}$)|(^\d{2}-\d{3}$|(^\d{5}-\d{4}$))/
+    if (!postalCode) {
+      setPostalCodeError('Postal code is required')
+      setInputError((prevState) => ({ ...prevState, postalCode: true }))
+      isValid = false
+    } else if (!postalCode.match(validPostalCode)) {
+      setPostalCodeError('Invalid postal code')
+      setInputError((prevState) => ({ ...prevState, postalCode: true }))
+      isValid = false
+    } else {
+      setPostalCodeError('')
+      setInputError((prevState) => ({ ...prevState, postalCode: false }))
+    }
+    return isValid
+  }
+  const validateStreetAddress = () => {
+    let isValid = true
+    if (!streetAddress) {
+      setStreetAddressError('StreetAddress is required')
+      setInputError((prevState) => ({ ...prevState, streetAddress: true }))
+      isValid = false
+    } else if (streetAddress.length < 3) {
+      setStreetAddressError('Street address must be at least 3 characters')
+      setInputError((prevState) => ({ ...prevState, streetAddress: true }))
+      isValid = false
+    } else if (streetAddress.length > 50) {
+      setStreetAddressError('Street address must be less than 50 characters')
+      setInputError((prevState) => ({ ...prevState, streetAddress: true }))
+      isValid = false
+    } else {
+      setStreetAddressError('')
+      setInputError((prevState) => ({ ...prevState, streetAddress: false }))
+    }
+    return isValid
+  }
+  const validateCountry = () => {
+    let isValid = true
+    if (!country) {
+      setCountryError('Country is required')
+      setInputError((prevState) => ({ ...prevState, country: true }))
+      isValid = false
+    } else if (country.length < 3) {
+      setCountryError('Country must be at least 3 characters')
+      setInputError((prevState) => ({ ...prevState, country: true }))
+      isValid = false
+    } else if (country.length > 50) {
+      setCountryError('Country must be less than 50 characters')
+      setInputError((prevState) => ({ ...prevState, country: true }))
+      isValid = false
+    } else {
+      setCountryError('')
+      setInputError((prevState) => ({ ...prevState, country: false }))
+    }
+    return isValid
+  }
+
+  const validateForm = () => {
+    const isValid =
+      validateName() &&
+      validateEmail() &&
+      validateCity() &&
+      validatePostalCode() &&
+      validateStreetAddress() &&
+      validateCountry();
+  
+    return isValid;
+  }
+
   const goToPayment = async () => {
+    const isValid = validateForm()
+    if (isValid) {
     const response = await axios.post('/api/checkout', {
       name, email, city, postalCode,
       streetAddress, country, cartProducts
     })
     if (response.data.url) return window.location = response.data.url
   }
+}
   let total = 0
   for (const productId of cartProducts) {
     const price = products.find(value => value._id === productId)?.price || 0
@@ -230,35 +396,63 @@ const CartPage = () => {
                     placeholder="Name"
                     value={name}
                     name="name"
-                    onChange={ev => setName(ev.target.value)} />
+                    onChange={ev => (setName(ev.target.value))} 
+                    onBlur={() => validateName()}
+                    inputError={inputError.name}
+                    />
+                    { nameError && <ErrorMessage>{nameError}</ErrorMessage> }
                   <Input type="text"
                     placeholder="Email"
                     value={email}
                     name="email"
-                    onChange={ev => setEmail(ev.target.value)} />
+                    onChange={ev => setEmail(ev.target.value)} 
+                    onBlur={() => validateEmail()}
+                    inputError={inputError.email}
+                    />
+                    { emailError && <ErrorMessage>{emailError}</ErrorMessage> }
                   <CityHolder>
+                    <CityHolderInputWrapper>
                     <Input type="text"
                       placeholder="City"
                       value={city}
                       name="city"
-                      onChange={ev => setCity(ev.target.value)} />
+                      onChange={ev => setCity(ev.target.value)} 
+                      onBlur={() => validateCity()}
+                      inputError={inputError.city}
+                      />
+                      { cityError && <ErrorMessage>{cityError}</ErrorMessage> }
+                      </CityHolderInputWrapper>
+                      <CityHolderInputWrapper>
                     <Input type="text"
                       placeholder="Postal Code"
                       value={postalCode}
                       name="postalCode"
-                      onChange={ev => setPostalCode(ev.target.value)} />
+                      onChange={ev => setPostalCode(ev.target.value)} 
+                      onBlur={() => validatePostalCode()}
+                      inputError={inputError.postalCode}
+                      />
+                      { postalCodeError && <ErrorMessage>{postalCodeError}</ErrorMessage> }
+                      </CityHolderInputWrapper>
                   </CityHolder>
                   <Input type="text"
                     placeholder="Street Address"
                     value={streetAddress}
                     name="streetAddress"
-                    onChange={ev => setStreetAddress(ev.target.value)} />
+                    onChange={ev => setStreetAddress(ev.target.value)} 
+                    onBlur={() => validateStreetAddress()}
+                    inputError={inputError.streetAddress}
+                    />
+                    { streetAddressError && <ErrorMessage>{streetAddressError}</ErrorMessage> }
                   <Input type="text"
                     placeholder="Country"
                     value={country}
                     name="country"
-                    onChange={ev => setCountry(ev.target.value)} />
-                  <Button block $bgColor="black" onClick={goToPayment}>Go to payment</Button>
+                    onChange={ev => setCountry(ev.target.value)} 
+                    onBlur={() => validateCountry()}
+                    inputError={inputError.country}
+                    />
+                    { countryError && <ErrorMessage>{countryError}</ErrorMessage> }
+                  <Button $block $bgColor="black" onClick={goToPayment}>Go to payment</Button>
                 </WhiteBox>
               </>
 

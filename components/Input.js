@@ -1,10 +1,13 @@
-import styled from "styled-components"
+import styled, { css } from "styled-components"
 
 const StyledInput = styled.input`
     max-width: 100%;
     padding: 2px;
-    margin-bottom: 5px;
-    line-height: 2rem
+    margin-top: 5px;
+    line-height: 2rem;
+    ${props => props.inputError && css`
+          border: 1px solid var(--danger-color);
+        `}
 `
 
 const Input = (props) => {
