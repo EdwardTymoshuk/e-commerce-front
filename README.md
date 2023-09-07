@@ -8,10 +8,10 @@ The E-Commerce Frontend is a web application that serves as the user interface f
 ## Features
 - **Product Catalog:** Browse a wide range of products with detailed information.
 - **Search Functionality:** Easily find products using the search bar.
+- **Filtering Functionality:** Easily filter products by category or by color.
 - **Product Details:** View detailed information about each product.
 - **Shopping Cart:** Add products to your cart and proceed to checkout.
 - **User Authentication:** Register and log in to your account.
-- **User Profiles:** Update personal information and view order history.
 - **Responsive Design:** Ensures a seamless experience on various devices.
 
 ## Installation
@@ -28,15 +28,13 @@ The E-Commerce Frontend is a web application that serves as the user interface f
 - Next.js: A framework for building React applications.
 - Styled-components: A CSS-in-JS library for styling components.
 - Axios: A promise-based HTTP client for making API requests.
+- MongoDB: A document database with the scalability and flexibility that you want with the querying and indexing that you need.
 
 ## Contributing
 Contributions are welcome! If you'd like to contribute to this project, please follow the standard GitHub fork and pull request process.
 
-## License
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
 ## Contact
 For any inquiries or feedback, please contact the project owner:
-- Edward Tymoshuk
-- Email: [your.email@example.com](mailto:your.email@example.com)
+- Eduard Tymoshuk
+- Email: [eduard.tymoshuk@gmail.com](mailto:eduard.tymoshuk@gmail.com)
 - GitHub: [https://github.com/EdwardTymoshuk](https://github.com/EdwardTymoshuk)
