@@ -5,11 +5,13 @@ import { useContext } from "react"
 import { CartContext } from "./CartContext"
 import { device } from "@/utils/devices"
 
+// Styled container for the product
 const ProductWrapper = styled.div`
     max-width: 200px;
     width: 100%;
 `
 
+// Container for the product image, which is also a link to the product page
 const ImageBox = styled(Link)`
   background-color: #fff;
   padding: 20px;
@@ -19,29 +21,32 @@ const ImageBox = styled(Link)`
   align-items: center;
   justify-content: center;
   border-radius: 10px;
-  img{
+  img {
     max-width: 100%;
     max-height: 160px;
   }
 `
 
+// Container for product information
 const ProductInfoBox = styled.div`
   margin-top: 5px;
-  text-align: center ;
+  text-align: center;
 `
 
+// Row for displaying product price and add to cart button
 const PriceRow = styled.div`
   display: grid;
   align-items: center;
   padding-top: 5px;
   @media ${device.mobileL} {
     display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 2px;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2px;
   }
 `
 
+// Product price
 const Price = styled.div`
   font-size: 1rem;
   font-weight: 500;
@@ -51,8 +56,9 @@ const Price = styled.div`
     font-weight: 500;
     text-align: left;
   }
-`;
+`
 
+// Title of the product, which is also a link to the product page
 const Title = styled(Link)`
   font-weight: normal;
   font-size: .9rem;
@@ -62,6 +68,7 @@ const Title = styled(Link)`
   text-align: center;
 `
 
+// ProductBox component
 const ProductBox = ({ _id, title, description, price, images }) => {
     const {addProduct} = useContext(CartContext)
     const url = '/product/' + _id;

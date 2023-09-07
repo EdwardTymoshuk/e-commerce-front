@@ -12,6 +12,7 @@ import { device } from "@/utils/devices"
 import Footer from "@/components/Footer"
 import PageWrapper from "@/components/PageWrapper"
 
+// Styled components for styling the page.
 const Wrapper = styled.div`
   display: flex;
   gap: 1rem;
@@ -57,6 +58,7 @@ const FiltersBar = styled.div`
   width: fit-content;
 `
 
+// The main ProductsPage component.
 const ProductsPage = ({ products, categories }) => {
   const [currentPage, setCurrentPage] = useState(1)
   const [filteredProducts, setFilteredProducts] = useState(products)
@@ -65,6 +67,7 @@ const ProductsPage = ({ products, categories }) => {
   const [activeFilterButton, setActiveFilterButton] = useState(false)
   const uniqueColorsSet = new Set()
 
+  // Extracting unique colors from categories.
   categories.forEach((item) => {
     if (item.properties && Array.isArray(item.properties)) {
       item.properties.forEach(({ name, values }) => {
@@ -78,16 +81,18 @@ const ProductsPage = ({ products, categories }) => {
     }
   })
 
+  // Converting unique colors to an array and sorting them.
   const uniqueColorsArray = Array.from(uniqueColorsSet).sort((a, b) =>
     a.localeCompare(b, 'en', { sensitivity: 'base' })
   )
 
+  // Function to search products by category.
   const searchProduct = (e) => {
     const searchTerm = e.target.value.toLowerCase().trim()
     setCurrentPage(1)
     setChosenCategory(searchTerm)
 
-    // Apply category and color filtering simultaneously
+    // Apply category and color filtering simultaneously.
     const newFilteredProducts = products.filter((item) => {
       const categoryMatches = searchTerm === '' || item.title.toLowerCase().includes(searchTerm)
       const colorMatches = chosenColor === '' || item.properties.Color.toLowerCase().includes(chosenColor)
@@ -97,6 +102,7 @@ const ProductsPage = ({ products, categories }) => {
     setFilteredProducts(newFilteredProducts)
   }
 
+  // Function to search products by color.
   const searchProductByColor = (e) => {
     const searchTerm = e.target.value.toLowerCase().trim()
     setCurrentPage(1)
@@ -184,6 +190,8 @@ const ProductsPage = ({ products, categories }) => {
 
 export default ProductsPage
 
+
+// Fetching products and categories from the server
 export const getServerSideProps = async () => {
   await mongooseConnect()
   const products = await Product.find({}, null, { sort: { '_id': -1 } })

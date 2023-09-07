@@ -2,6 +2,7 @@ import Link from "next/link"
 import { GiPlanetConquest } from "react-icons/gi"
 import { styled } from "styled-components"
 
+// Define a styled link element
 const StyledLink = styled(Link)`
     color: white;
     display: flex;
@@ -12,15 +13,16 @@ const StyledLink = styled(Link)`
     z-index: 3;
 ` 
 
+// Define the Logo component
 const Logo = ({size}) => {
     return (
         <StyledLink href="/">
-        <GiPlanetConquest size={size} color="var(--primary-color)"/>
-        <div>
-        E-commerce front
-        </div>
-    </StyledLink>
+            <GiPlanetConquest size={size} color="var(--primary-color)"/>
+            <div>
+                E-commerce front
+            </div>
+        </StyledLink>
     )
 }
 
-export default Logo  
+export default Logo

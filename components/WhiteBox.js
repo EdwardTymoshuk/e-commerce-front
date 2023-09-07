@@ -1,5 +1,6 @@
 import { styled } from "styled-components"
 
+// Styled component for a white box
 const WhiteBox = styled.div`
     display: flex;
     flex-direction: column;

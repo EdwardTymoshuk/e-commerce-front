@@ -7,11 +7,12 @@ import { device } from "@/utils/devices"
 import { useContext } from "react"
 import { CartContext } from "./CartContext"
 
+// Define a styled footer element
 const StyledFooter = styled.footer`
   position: sticky;
   display: grid;
   grid-template-columns: 1fr;
-    text-align: center;
+  text-align: center;
   align-items: center;
   background-color: var(--header-color);
   min-height: 80px;
@@ -38,6 +39,8 @@ const StyledFooter = styled.footer`
     grid-template-columns: repeat(3, 1fr);
   }
 `
+
+// Define a styled list for navigation links
 const StyledList = styled.ul`
   text-decoration: none;
   list-style: none;
@@ -51,31 +54,34 @@ const StyledList = styled.ul`
   }
 `
 
+// Define the Footer component
 const Footer = () => {
-  const {cartProducts} = useContext(CartContext)
+  // Access cartProducts data from CartContext
+  const { cartProducts } = useContext(CartContext)
+
   return (
     <StyledFooter>
       <div>
         <StyledList>
-            <li><Link href={'/'}>Home</Link></li>
-            <li><Link href={'/products'}>Products</Link></li>
-            <li><Link href={'/cart'}>Cart ({cartProducts.length})</Link></li>
+          <li><Link href={'/'}>Home</Link></li>
+          <li><Link href={'/products'}>Products</Link></li>
+          <li><Link href={'/cart'}>Cart ({cartProducts.length})</Link></li>
         </StyledList>
       </div>
       <div>
         <Logo size={48} />
       </div>
       <div>
-      <StyledList>
-        <li><a href="tel:+480000000">+48 000 00 00</a></li>
-        <li><a href="mailto:info@ecommerce-front.com">info@ecommerce-front.com</a></li>
-        <li> <br />
-        300 E St SW <br />
-        Washington <br />
-        DC 20546 <br />
-        USA
-        </li>
-      </StyledList>
+        <StyledList>
+          <li><a href="tel:+480000000">+48 000 00 00</a></li>
+          <li><a href="mailto:info@ecommerce-front.com">info@ecommerce-front.com</a></li>
+          <li> <br />
+            300 E St SW <br />
+            Washington <br />
+            DC 20546 <br />
+            USA
+          </li>
+        </StyledList>
       </div>
     </StyledFooter>
   )

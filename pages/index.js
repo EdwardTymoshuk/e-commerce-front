@@ -1,11 +1,12 @@
-import Featured from "@/components/Featured";
-import Footer from "@/components/Footer";
-import Header from "@/components/Header";
-import NewProducts from "@/components/NewProducts";
-import PageWrapper from "@/components/PageWrapper";
-import { mongooseConnect } from "@/lib/mongoose";
-import { Product } from "@/models/Product";
+import Featured from "@/components/Featured"
+import Footer from "@/components/Footer"
+import Header from "@/components/Header"
+import NewProducts from "@/components/NewProducts"
+import PageWrapper from "@/components/PageWrapper"
+import { mongooseConnect } from "@/lib/mongoose"
+import { Product } from "@/models/Product"
 
+// Define the HomePage component.
 export default function HomePage({feturedProduct, newProducts}) {
   return (
     <PageWrapper>
@@ -17,6 +18,7 @@ export default function HomePage({feturedProduct, newProducts}) {
   )
 }
 
+// Define an asynchronous function to fetch data for server-side rendering.
   export async function getServerSideProps() {
     const featuredProductId = '64c64322c836036fc1370584'
     await mongooseConnect()

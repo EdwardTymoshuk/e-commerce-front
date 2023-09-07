@@ -5,6 +5,7 @@ import { BiMenu } from "react-icons/bi"
 import { device } from "@/utils/devices"
 import { useState } from "react"
 
+// Define a styled header element
 const StyledHeader = styled.header`
     top:0;
     display: flex;
@@ -22,6 +23,8 @@ const StyledHeader = styled.header`
         position: relative;
     }
 `
+
+// Define a styled button for mobile navigation
 const NavButton = styled.button`
     background-color: transparent;
     border: 0;
@@ -31,8 +34,10 @@ const NavButton = styled.button`
     }
 `
 
+// Define the Header component
 const Header = () => {
     const [ mobileNavActive, setMobileNavActive ] = useState(false)
+
     return (
         <StyledHeader>
             <Logo size={36} />

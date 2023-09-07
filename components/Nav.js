@@ -4,6 +4,7 @@ import { useContext } from "react"
 import { CartContext } from "./CartContext"
 import { device } from "@/utils/devices"
 
+// Define a styled navigation element with conditional styles for mobile
 const StyledNav = styled.nav`
     visibility: ${props => (props.mobileNavActive ? 'visible' : 'hidden')};
     opacity: ${props => (props.mobileNavActive ? 1 : 0)};
@@ -25,22 +26,24 @@ const StyledNav = styled.nav`
         display: flex;
         position: static;
     }
-        a {
-            display: block;
-            color: white;
-            transition: .2s;
-            padding: .2rem 0;
-            @media ${device.tablet} {
-                padding: 0;
-    }
+    a {
+        display: block;
+        color: white;
+        transition: .2s;
+        padding: .2rem 0;
+        @media ${device.tablet} {
+            padding: 0;
         }
-        a:hover {
-                color: var(--primary-color);
-            }
+    }
+    a:hover {
+        color: var(--primary-color);
+    }
 `
 
+// Define the Nav component
 const Nav = ({mobileNavActive}) => {
     const {cartProducts} = useContext(CartContext)
+
     return (
         <StyledNav mobileNavActive={mobileNavActive}>
             <Link href={'/'}>Home</Link>

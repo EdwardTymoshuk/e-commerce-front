@@ -1,6 +1,7 @@
 import { device } from "@/utils/devices"
 import { styled } from "styled-components"
 
+// Define a styled div with certain styles
 const StyledDiv = styled.div`
   max-width: 1200px;
   margin: 0 auto;
@@ -11,7 +12,8 @@ const StyledDiv = styled.div`
   }
 `
 
-const Centered = ({children}) => {
+// Create a Centered component that wraps its children with the StyledDiv
+const Centered = ({ children }) => {
   return (
     <StyledDiv>{children}</StyledDiv>
   )

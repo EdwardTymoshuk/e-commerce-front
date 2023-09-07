@@ -13,6 +13,7 @@ import { BsFillHeartFill } from 'react-icons/bs'
 import Footer from "@/components/Footer"
 import PageWrapper from "@/components/PageWrapper"
 
+// Styled-components for styling elements
 const ColumnsWraper = styled.div`
   display: flex;
   flex-direction: column;
@@ -110,9 +111,12 @@ const ThanksWrapper = styled.div`
     margin: 1rem;
   }
 `
-
+// CartPage component
 const CartPage = () => {
+  // Using CartContext to manage cart state
   const { cartProducts, addProduct, removeProduct, clearCart } = useContext(CartContext)
+
+  // State variables for managing form data and errors
   const [products, setProducts] = useState([])
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -121,21 +125,24 @@ const CartPage = () => {
   const [streetAddress, setStreetAddress] = useState('')
   const [country, setCountry] = useState('')
   const [nameError, setNameError] = useState('')
-const [emailError, setEmailError] = useState('')
-const [cityError, setCityError] = useState('')
-const [postalCodeError, setPostalCodeError] = useState('')
-const [streetAddressError, setStreetAddressError] = useState('')
-const [countryError, setCountryError] = useState('')
-const [inputError, setInputError] = useState({
-  name: false,
-  email: false,
-  city: false,
-  postalCode: false,
-  streetAddress: false,
-  country: false,
-})
+  const [emailError, setEmailError] = useState('')
+  const [cityError, setCityError] = useState('')
+  const [postalCodeError, setPostalCodeError] = useState('')
+  const [streetAddressError, setStreetAddressError] = useState('')
+  const [countryError, setCountryError] = useState('')
+  const [inputError, setInputError] = useState({
+    name: false,
+    email: false,
+    city: false,
+    postalCode: false,
+    streetAddress: false,
+    country: false,
+  })
+
+  // State variable to track the success status of the order.
   const [isSuccess, setIsSuccess] = useState(false)
 
+  // Load products in the cart from the server when the cartProducts change.
   useEffect(() => {
     if (cartProducts.length > 0) {
       axios.post('/api/cart', { ids: cartProducts })
@@ -147,6 +154,7 @@ const [inputError, setInputError] = useState({
     }
   }, [cartProducts])
 
+  // Check for a successful order completion and clear the cart.
   useEffect(() => {
     if (typeof window === 'undefined') {
       return
@@ -157,14 +165,17 @@ const [inputError, setInputError] = useState({
     }
   }, [])
 
+  // Increase the quantity of a product in the cart.
   const moreOfThisProduct = (id) => (
     addProduct(id, false)
   )
 
+  // Decrease the quantity of a product in the cart.
   const lessOfThisProduct = (id) => (
     removeProduct(id)
   )
 
+  // Validate the name input field.
   const validateName = () => {
     let isValid = true
     if (!name) {
@@ -186,6 +197,7 @@ const [inputError, setInputError] = useState({
     return isValid
   }
 
+  // Validate the email input field.
   const validateEmail = () => {
     let isValid = true
     let validEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
@@ -205,12 +217,14 @@ const [inputError, setInputError] = useState({
       setEmailError('Email must be less than 75 characters')
       setInputError((prevState) => ({ ...prevState, email: true }))
       isValid = false
-    }  else {
+    } else {
       setEmailError('')
       setInputError((prevState) => ({ ...prevState, email: false }))
     }
     return isValid
   }
+
+  // Validate the city input field.
   const validateCity = () => {
     let isValid = true
     if (!city) {
@@ -225,12 +239,14 @@ const [inputError, setInputError] = useState({
       setCityError('City must be less than 50 characters')
       setInputError((prevState) => ({ ...prevState, city: true }))
       isValid = false
-    }  else {
+    } else {
       setCityError('')
       setInputError((prevState) => ({ ...prevState, city: false }))
     }
     return isValid
   }
+
+  // Validate the postal code input field.
   const validatePostalCode = () => {
     let isValid = true
     let validPostalCode = /(^\d{5}$)|(^\d{2}-\d{3}$|(^\d{5}-\d{4}$))/
@@ -248,6 +264,8 @@ const [inputError, setInputError] = useState({
     }
     return isValid
   }
+
+  // Validate the street address input field.
   const validateStreetAddress = () => {
     let isValid = true
     if (!streetAddress) {
@@ -268,6 +286,8 @@ const [inputError, setInputError] = useState({
     }
     return isValid
   }
+
+  // Validate the country input field.
   const validateCountry = () => {
     let isValid = true
     if (!country) {
@@ -289,6 +309,7 @@ const [inputError, setInputError] = useState({
     return isValid
   }
 
+  // Validate the entire form.
   const validateForm = () => {
     const isValid =
       validateName() &&
@@ -297,25 +318,30 @@ const [inputError, setInputError] = useState({
       validatePostalCode() &&
       validateStreetAddress() &&
       validateCountry();
-  
+
     return isValid;
   }
 
+  // Redirect to the payment page if the form is valid.
   const goToPayment = async () => {
     const isValid = validateForm()
     if (isValid) {
-    const response = await axios.post('/api/checkout', {
-      name, email, city, postalCode,
-      streetAddress, country, cartProducts
-    })
-    if (response.data.url) return window.location = response.data.url
+      const response = await axios.post('/api/checkout', {
+        name, email, city, postalCode,
+        streetAddress, country, cartProducts
+      })
+      if (response.data.url) return window.location = response.data.url
+    }
   }
-}
+
+  // Calculate the total price of items in the cart.
   let total = 0
   for (const productId of cartProducts) {
     const price = products.find(value => value._id === productId)?.price || 0
     total += price
   }
+
+  // Render a thank you message if the order was successful.
   if (isSuccess) return (
     <PageWrapper>
       <Header />
@@ -325,14 +351,15 @@ const [inputError, setInputError] = useState({
             <h3>Thanks for your order!</h3>
             <span>Have an awesome day and come back soon!</span>
             <p><BsFillHeartFill /></p>
-            <span>Forgot something ? Check our <a style={{color: "var(--primary-color)"}} href="/products">products!</a></span>
+            <span>Forgot something ? Check our <a style={{ color: "var(--primary-color)" }} href="/products">products!</a></span>
           </WhiteBox>
-          </ThanksWrapper>
+        </ThanksWrapper>
       </Centered>
       <Footer />
     </PageWrapper>
   )
 
+  // Render the cart and order information.
   return (
     <PageWrapper>
       <Header />
@@ -396,62 +423,62 @@ const [inputError, setInputError] = useState({
                     placeholder="Name"
                     value={name}
                     name="name"
-                    onChange={ev => (setName(ev.target.value))} 
+                    onChange={ev => (setName(ev.target.value))}
                     onBlur={() => validateName()}
                     inputError={inputError.name}
-                    />
-                    { nameError && <ErrorMessage>{nameError}</ErrorMessage> }
+                  />
+                  {nameError && <ErrorMessage>{nameError}</ErrorMessage>}
                   <Input type="text"
                     placeholder="Email"
                     value={email}
                     name="email"
-                    onChange={ev => setEmail(ev.target.value)} 
+                    onChange={ev => setEmail(ev.target.value)}
                     onBlur={() => validateEmail()}
                     inputError={inputError.email}
-                    />
-                    { emailError && <ErrorMessage>{emailError}</ErrorMessage> }
+                  />
+                  {emailError && <ErrorMessage>{emailError}</ErrorMessage>}
                   <CityHolder>
                     <CityHolderInputWrapper>
-                    <Input type="text"
-                      placeholder="City"
-                      value={city}
-                      name="city"
-                      onChange={ev => setCity(ev.target.value)} 
-                      onBlur={() => validateCity()}
-                      inputError={inputError.city}
+                      <Input type="text"
+                        placeholder="City"
+                        value={city}
+                        name="city"
+                        onChange={ev => setCity(ev.target.value)}
+                        onBlur={() => validateCity()}
+                        inputError={inputError.city}
                       />
-                      { cityError && <ErrorMessage>{cityError}</ErrorMessage> }
-                      </CityHolderInputWrapper>
-                      <CityHolderInputWrapper>
-                    <Input type="text"
-                      placeholder="Postal Code"
-                      value={postalCode}
-                      name="postalCode"
-                      onChange={ev => setPostalCode(ev.target.value)} 
-                      onBlur={() => validatePostalCode()}
-                      inputError={inputError.postalCode}
+                      {cityError && <ErrorMessage>{cityError}</ErrorMessage>}
+                    </CityHolderInputWrapper>
+                    <CityHolderInputWrapper>
+                      <Input type="text"
+                        placeholder="Postal Code"
+                        value={postalCode}
+                        name="postalCode"
+                        onChange={ev => setPostalCode(ev.target.value)}
+                        onBlur={() => validatePostalCode()}
+                        inputError={inputError.postalCode}
                       />
-                      { postalCodeError && <ErrorMessage>{postalCodeError}</ErrorMessage> }
-                      </CityHolderInputWrapper>
+                      {postalCodeError && <ErrorMessage>{postalCodeError}</ErrorMessage>}
+                    </CityHolderInputWrapper>
                   </CityHolder>
                   <Input type="text"
                     placeholder="Street Address"
                     value={streetAddress}
                     name="streetAddress"
-                    onChange={ev => setStreetAddress(ev.target.value)} 
+                    onChange={ev => setStreetAddress(ev.target.value)}
                     onBlur={() => validateStreetAddress()}
                     inputError={inputError.streetAddress}
-                    />
-                    { streetAddressError && <ErrorMessage>{streetAddressError}</ErrorMessage> }
+                  />
+                  {streetAddressError && <ErrorMessage>{streetAddressError}</ErrorMessage>}
                   <Input type="text"
                     placeholder="Country"
                     value={country}
                     name="country"
-                    onChange={ev => setCountry(ev.target.value)} 
+                    onChange={ev => setCountry(ev.target.value)}
                     onBlur={() => validateCountry()}
                     inputError={inputError.country}
-                    />
-                    { countryError && <ErrorMessage>{countryError}</ErrorMessage> }
+                  />
+                  {countryError && <ErrorMessage>{countryError}</ErrorMessage>}
                   <Button $block $bgColor="black" onClick={goToPayment}>Go to payment</Button>
                 </WhiteBox>
               </>

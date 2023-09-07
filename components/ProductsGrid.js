@@ -1,15 +1,16 @@
 import { styled } from "styled-components"
 import ProductBox from "./ProductBox"
 import { device } from "@/utils/devices"
-import { useState } from "react"
 import Pagination from "./Pagination"
 
+// Wrapper for the ProductsGrid component
 const ProductsGridWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
 `
 
+// Styled component for the grid of products
 const StyledProductsGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(1, 1fr);
@@ -31,20 +32,19 @@ const StyledProductsGrid = styled.div`
   }
 `
 
-
-const ProductsGrid = ({ products, pagination, currentPage, setCurrentPage}) => {
+// ProductsGrid component
+const ProductsGrid = ({ products, pagination, currentPage, setCurrentPage }) => {
   const productsPerPage = 8
   const indexOfLastProduct = currentPage * productsPerPage
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage
   const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct)
   const totalPages = Math.ceil(products.length / productsPerPage)
 
-
-
+  // Function to handle page changes
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber)
   }
-  
+
   return (
     <ProductsGridWrapper>
       <StyledProductsGrid>
@@ -53,9 +53,14 @@ const ProductsGrid = ({ products, pagination, currentPage, setCurrentPage}) => {
             <ProductBox key={item._id} {...item} />
           ))}
       </StyledProductsGrid>
-{      totalPages > 1 &&
-    pagination && <Pagination handlePageChange={handlePageChange} totalPages={totalPages} currentPage={currentPage} />
-}
+      {/* Render pagination component if there are multiple pages */}
+      {totalPages > 1 && pagination && (
+        <Pagination
+          handlePageChange={handlePageChange}
+          totalPages={totalPages}
+          currentPage={currentPage}
+        />
+      )}
     </ProductsGridWrapper>
   )
 }
