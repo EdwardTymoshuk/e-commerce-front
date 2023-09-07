@@ -3,7 +3,7 @@
 ## Overview
 The E-Commerce Frontend is a web application that serves as the user interface for an online e-commerce store. It provides a user-friendly platform for customers to browse, search for, and purchase products. This project is built using modern web technologies and follows best practices in web development.
 
-![Project Screenshot](@/utils/images/project-ecommerce-next-app-front.jpg)
+![Project Screenshot](utils/images/project-ecommerce-next-app-front.png)
 
 ## Features
 - **Product Catalog:** Browse a wide range of products with detailed information.
