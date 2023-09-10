@@ -37,14 +37,14 @@ const Page404 = () => {
   return (
     <PageWrapper>
       <MessageWrapper>
-        <h1>404 | Page not found</h1> {/* Main heading for the error */}
+        <h1>404 | Page not found</h1>
         <Image
           src={astronaut}
           alt="astronaut"
           width={200}
         />
-        <h2>Oops! It looks like you're lost.</h2> {/* Subheading indicating the user is lost */}
-        <Button><Link href="/">Back Home</Link></Button> {/* Button for returning to the home page */}
+        <h2>Oops! It looks like you`re lost.</h2>
+        <Button><Link href="/">Back Home</Link></Button>
       </MessageWrapper>
     </PageWrapper>
   )
