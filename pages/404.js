@@ -43,7 +43,7 @@ const Page404 = () => {
           alt="astronaut"
           width={200}
         />
-        <h2>Oops! It looks like you`re lost.</h2>
+        <h2>Oops! It looks like you&apos;re lost.</h2>
         <Button><Link href="/">Back Home</Link></Button>
       </MessageWrapper>
     </PageWrapper>
