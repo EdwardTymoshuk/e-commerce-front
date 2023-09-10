@@ -4,6 +4,7 @@ import Button from "./Button"
 import { useContext } from "react"
 import { CartContext } from "./CartContext"
 import { device } from "@/utils/devices"
+import Image from "next/image"
 
 // Styled container for the product
 const ProductWrapper = styled.div`
@@ -75,7 +76,7 @@ const ProductBox = ({ _id, title, description, price, images }) => {
     return (
         <ProductWrapper>
             <ImageBox href={url}>
-                <img src={images[0]} alt="Product image" />
+                <Image src={images[0]} alt="Product image" width={160} height={160}/>
             </ImageBox>
             <ProductInfoBox>
                 <Title href={url}>{title}</Title>

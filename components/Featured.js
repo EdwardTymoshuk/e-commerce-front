@@ -6,6 +6,7 @@ import { FaCartPlus } from 'react-icons/fa'
 import ButtonLink from "./ButtonLink"
 import { CartContext } from "./CartContext"
 import { device } from "@/utils/devices"
+import Image from "next/image"
 
 // Define a styled div with certain styles
 const StyledDiv = styled.div`
@@ -49,6 +50,7 @@ const Wrapper = styled.div`
     img {
         width: 100%;
         max-width: 350px;
+        height: auto;
     }
     div {
         display: flex;
@@ -94,7 +96,7 @@ const Featured = ({ product }) => {
                         </div>
                     </div>
                     <div>
-                        <img src={images[0]} alt="Featured product" />
+                        <Image src={images[0]} alt="Featured product" width={350} height={200} />
                     </div>
                 </Wrapper>
             </Centered>

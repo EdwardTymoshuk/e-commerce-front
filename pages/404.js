@@ -2,6 +2,7 @@ import { styled } from "styled-components"
 import astronaut from "@/utils/images/astronaut.png"
 import Image from "next/image"
 import Button from "@/components/Button"
+import Link from "next/link"
 
 // This component represents the 404 error page.
 const Page404 = () => {
@@ -43,7 +44,7 @@ const Page404 = () => {
           width={200}
         />
         <h2>Oops! It looks like you're lost.</h2> {/* Subheading indicating the user is lost */}
-        <Button><a href="/">Back Home</a></Button> {/* Button for returning to the home page */}
+        <Button><Link href="/">Back Home</Link></Button> {/* Button for returning to the home page */}
       </MessageWrapper>
     </PageWrapper>
   )

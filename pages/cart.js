@@ -12,6 +12,8 @@ import { styled } from "styled-components"
 import { BsFillHeartFill } from 'react-icons/bs'
 import Footer from "@/components/Footer"
 import PageWrapper from "@/components/PageWrapper"
+import Link from "next/link"
+import Image from "next/image"
 
 // Styled-components for styling elements
 const ColumnsWraper = styled.div`
@@ -163,7 +165,7 @@ const CartPage = () => {
       setIsSuccess(true)
       clearCart()
     }
-  }, [])
+  }, [clearCart])
 
   // Increase the quantity of a product in the cart.
   const moreOfThisProduct = (id) => (
@@ -351,7 +353,7 @@ const CartPage = () => {
             <h3>Thanks for your order!</h3>
             <span>Have an awesome day and come back soon!</span>
             <p><BsFillHeartFill /></p>
-            <span>Forgot something ? Check our <a style={{ color: "var(--primary-color)" }} href="/products">products!</a></span>
+            <span>Forgot something ? Check our <Link style={{ color: "var(--primary-color)" }} href="/products">products!</Link></span>
           </WhiteBox>
         </ThanksWrapper>
       </Centered>
@@ -386,7 +388,7 @@ const CartPage = () => {
                       <tr key={product._id}>
                         <ProductInfoCell>
                           <ProductImageBox>
-                            <img src={product.images[0]} alt="" />
+                          <Image src={product.images[0]} alt={product.title} width={60} height={60} />
                           </ProductImageBox>
                           {product.title}
                         </ProductInfoCell>
