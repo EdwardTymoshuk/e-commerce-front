@@ -67,13 +67,12 @@ const CityHolder = styled.div`
   flex-direction: column;
   gap: 5px;
   @media ${device.mobileM} {
-    flex-direction: row;
-    div:first-child {
-    flex-grow: 3;
-  }
-  div:last-child {
-    flex-grow: 1;
-  }
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    div {
+      min-width: 100%;
+      max-width: 100%;
+    }
   }
 `
 const CityHolderInputWrapper = styled.div`
