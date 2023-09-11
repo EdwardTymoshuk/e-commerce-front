@@ -72,6 +72,7 @@ const CityHolder = styled.div`
     div {
       min-width: 100%;
       max-width: 100%;
+      
     }
   }
 `
