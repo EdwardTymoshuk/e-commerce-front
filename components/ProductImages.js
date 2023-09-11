@@ -24,12 +24,18 @@ const MainImageWrapper = styled.div`
 const ImageButtons = styled.div`
     display: flex;
     gap: .25rem;
-    flex-grow: 0;
+    flex-grow: 1;
+    width: 100%;
+    height: auto;
 `
 
 // Styled component for individual image selection button
 const ImageButton = styled.div`
     border: 1px solid var(--text-color);
+    img {
+        max-height: 100%;
+    }
+
 
     /* Apply different styles based on whether the image is active or not */
     ${props => props.active ? `
@@ -59,7 +65,7 @@ const ProductImages = ({ images }) => {
                         onClick={() => setActiveImage(item)}
                         key={item}
                     >
-                        <Image src={item} alt="Product image miniature" />
+                        <Image src={item} alt="Product image miniature"/>
                     </ImageButton>
                 ))}
             </ImageButtons>

@@ -9,6 +9,7 @@ const WhiteBox = styled.div`
     padding: 20px;  
     gap: 0.25rem;
     height: fit-content;
+    max-width: 100%;
 `
 
 export default WhiteBox

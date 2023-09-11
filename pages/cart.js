@@ -69,10 +69,10 @@ const CityHolder = styled.div`
   @media ${device.mobileM} {
     flex-direction: row;
     div:first-child {
-    flex: 3;
+    flex-grow: 3;
   }
   div:last-child {
-    flex: 1;
+    flex-grow: 1;
   }
   }
 `
