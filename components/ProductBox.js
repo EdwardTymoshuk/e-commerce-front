@@ -15,7 +15,7 @@ const ProductWrapper = styled.div`
 // Container for the product image, which is also a link to the product page
 const ImageBox = styled(Link)`
   background-color: #fff;
-  padding: 20px;
+  padding: 10px;
   height: 160px;
   text-align: center;
   display: flex;
@@ -25,6 +25,7 @@ const ImageBox = styled(Link)`
   img {
     max-width: 100%;
     max-height: 160px;
+    height: auto;
   }
 `
 

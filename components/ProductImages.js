@@ -22,18 +22,22 @@ const MainImageWrapper = styled.div`
 
 // Styled component for displaying image selection buttons
 const ImageButtons = styled.div`
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
     gap: .25rem;
     flex-grow: 1;
     width: 100%;
     height: auto;
+    /* max-height: 80px; */
 `
 
 // Styled component for individual image selection button
 const ImageButton = styled.div`
     border: 1px solid var(--text-color);
+    height: 100%;
     img {
         max-height: 100%;
+        height: auto;
     }
 
 
