@@ -28,7 +28,6 @@ const ImageButtons = styled.div`
     flex-grow: 1;
     width: 100%;
     height: auto;
-    /* max-height: 80px; */
 `
 
 // Styled component for individual image selection button
