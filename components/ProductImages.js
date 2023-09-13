@@ -12,7 +12,7 @@ const Image = styled.img`
 const MainImage = styled.img`
     max-width: 100%;
     max-height: 350px;
-    width: fit-content;
+    width: auto;
 `
 
 // Styled component for wrapping the main product image
@@ -34,7 +34,7 @@ const ImageButtons = styled.div`
 // Styled component for individual image selection button
 const ImageButton = styled.div`
     border: 1px solid var(--text-color);
-    height: 100%;
+    height: fit-content;
     img {
         max-height: 100%;
         height: auto;
