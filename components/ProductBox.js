@@ -29,7 +29,7 @@ const ImageBox = styled(Link)`
   }
 `
 
-// Container for product information
+// Container for product information 
 const ProductInfoBox = styled.div`
   margin-top: 5px;
   text-align: center;
