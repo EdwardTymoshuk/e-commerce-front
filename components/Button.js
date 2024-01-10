@@ -23,10 +23,14 @@ export const ButtonStyle = css`
 
   &:hover {
     background-color: var(--light-primary-color);
+    border-color: var(--light-primary-color);
     color: white;
   }
 
   /* Button styles based on props */
+  ${props => props.size === 'sm' && css`
+    font-size: .6rem;
+  `}
   ${props => props.size === 'md' && css`
     font-size: .8rem;
   `}
@@ -82,18 +86,19 @@ export const ButtonStyle = css`
 
     &:hover {
       background-color: var(--primary-color);
+      border-color: var(--primary-color);
       color: var(--dark-text-color);
     }
   `}
 
   ${props => props.$active === 'false' && css`
     background-color: transparent;
-    border: 1px solid;
-    border-color: var(--primary-color);
-    color: var(--primary-color);
+    border: none;
+    border-color: transparent;
+    color: black;
 
     &:hover {
-      background-color: var(--primary-color);
+      background-color: var(--light-primary-color);
       color: var(--dark-text-color);
     }
   `}

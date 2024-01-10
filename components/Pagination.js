@@ -27,7 +27,7 @@ const Pagination = ({handlePageChange, totalPages, currentPage}) => {
         if (totalPages <= 3) {
             for (let i = 1; i <= totalPages; i++) {
                 buttons.push(
-                    <Button $active={currentPage === i ? "true" : "false"} key={i} onClick={() => handlePageChange(i)}>
+                    <Button $active={currentPage === i ? "true" : "false"} size="sm" key={i} onClick={() => handlePageChange(i)}>
                         {i}
                     </Button>
                 )
