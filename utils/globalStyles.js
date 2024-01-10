@@ -3,7 +3,7 @@ import { createGlobalStyle } from "styled-components"
 export const GlobalStyles = createGlobalStyle`
   :root {
     --primary-color: #E9C46A;
-    --text-color: #dee2e6;
+    --text-color: #fff;
     --dark-text-color: #212529;
     --bg-color: #e9ecef;
 
@@ -20,7 +20,7 @@ export const GlobalStyles = createGlobalStyle`
     margin: 0; 
     color: var(--dark-text-color);
     background-color: var(--bg-color);
-    font-family: 'Roboto', sans-serif;
+    font-family: "Roboto", sans-serif;
     min-height: 100vh;
   }
   a{

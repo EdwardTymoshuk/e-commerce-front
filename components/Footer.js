@@ -1,7 +1,5 @@
 import { styled } from "styled-components"
 import Logo from "./Logo"
-import Nav from "./Nav"
-import Centered from "./Centered"
 import Link from "next/link"
 import { device } from "@/utils/devices"
 import { useContext } from "react"
@@ -63,9 +61,9 @@ const Footer = () => {
     <StyledFooter>
       <div>
         <StyledList>
-          <li><Link href={'/'}>Home</Link></li>
-          <li><Link href={'/products'}>Products</Link></li>
-          <li><Link href={'/cart'}>Cart ({cartProducts.length})</Link></li>
+          <li><Link href={"/"}>Home</Link></li>
+          <li><Link href={"/products"}>Products</Link></li>
+          <li><Link href={"/cart"}>Cart ({cartProducts.length})</Link></li>
         </StyledList>
       </div>
       <div>

@@ -12,48 +12,54 @@ import { device } from "@/utils/devices"
 import { useContext } from "react"
 import { styled } from "styled-components"
 
+// Styled component for the product title
 const Title = styled.h1`
     text-align: center;
 `
 
+// Styled component for the column wrapper
 const ColWrapper = styled.div`
     display: flex;
     flex-direction: column;
     margin: 20px 0;
     @media ${device.tablet} {
         display: grid;
-    grid-template-columns: .8fr 1.2fr;
-    gap: 50px;
-    margin: 40px 0 20px;
+        grid-template-columns: .8fr 1.2fr;
+        gap: 50px;
+        margin: 40px 0 20px;
     }
 `
+
+// Styled component for the price row
 const PriceRow = styled.div`
-     display: flex;
+    display: flex;
     gap: 5px;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 2px;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 2px;
 `
 
+// Styled component for the price
 const Price = styled.div`
-  font-size: 1.8rem;
-  font-weight: 600;
-  text-align: right;
-  color: var(--dark-text-color);
-  @media screen and (min-width: 768px) {
-    font-size: 1.6rem;
-    font-weight: 500;
-    text-align: left;
-  }
+    font-size: 1.8rem;
+    font-weight: 600;
+    text-align: right;
+    color: var(--dark-text-color);
+    @media screen and (min-width: 768px) {
+        font-size: 1.6rem;
+        font-weight: 500;
+        text-align: left;
+    }
 `;
 
 const ProductPage = ({ product }) => {
     const { _id, title, description, images, price } = product
-    const {addProduct} = useContext(CartContext)
+    const { addProduct } = useContext(CartContext)
 
+    // Function to create HTML markup from product description
     const createMarkup = () => {
         return { __html: description };
-      }
+    }
 
     return (
         <PageWrapper>
@@ -68,11 +74,11 @@ const ProductPage = ({ product }) => {
                         <Title>{title}</Title>
                         <p dangerouslySetInnerHTML={createMarkup()} />
                         <PriceRow>
-                    <Price>
-                        ${price}
-                    </Price>
-                    <Button onClick={() => addProduct(_id, true)} size="s" $bgColor="success">Add to cart</Button>
-                </PriceRow>
+                            <Price>
+                                ${price}
+                            </Price>
+                            <Button onClick={() => addProduct(_id, true)} size="s" $bgColor="success">Add to cart</Button>
+                        </PriceRow>
                     </div>
                 </ColWrapper>
             </Centered>
@@ -83,6 +89,7 @@ const ProductPage = ({ product }) => {
 
 export default ProductPage
 
+// Server-side rendering to fetch product data based on the provided ID
 export const getServerSideProps = async (context) => {
     await mongooseConnect()
     const { id } = context.query

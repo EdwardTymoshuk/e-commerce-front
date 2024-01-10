@@ -41,7 +41,7 @@ const Header = () => {
     return (
         <StyledHeader>
             <Logo size={36} />
-            <Nav mobileNavActive={mobileNavActive}/>
+            <Nav $isMobileNavActive={mobileNavActive}/>
             <NavButton onClick={() => setMobileNavActive(prev => !prev)}><BiMenu size={36}/></NavButton>
         </StyledHeader>
     )

@@ -65,19 +65,19 @@ const Pagination = ({handlePageChange, totalPages, currentPage}) => {
     return (
         <PaginationWrapper>
             {currentPage !== 1 && (
-                <Button $active='false' onClick={() => handlePageChange(1)}>{"<<"}</Button>
+                <Button $active="false" onClick={() => handlePageChange(1)}>{"<<"}</Button>
             )}
             {currentPage !== 1 && (
-                <Button $active='false' onClick={() => handlePageChange(currentPage - 1)}>{"<"}</Button>
+                <Button $active="false" onClick={() => handlePageChange(currentPage - 1)}>{"<"}</Button>
             )}
 
             {generatePaginationButtons()}
 
             {currentPage !== totalPages && totalPages !== 0 && (
-                <Button $active='false' onClick={() => handlePageChange(currentPage + 1)}>{">"}</Button>
+                <Button $active="false" onClick={() => handlePageChange(currentPage + 1)}>{">"}</Button>
             )}
             {currentPage !== totalPages && totalPages !== 0 && (
-                <Button $active='false' onClick={() => handlePageChange(totalPages)}>{">>"}</Button>
+                <Button $active="false" onClick={() => handlePageChange(totalPages)}>{">>"}</Button>
             )}
         </PaginationWrapper>
     )

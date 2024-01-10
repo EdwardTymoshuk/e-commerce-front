@@ -1,4 +1,4 @@
-import { Helmet } from "react-helmet"
+import { Helmet, HelmetProvider } from "react-helmet-async"
 import CartContextProvider from "@/components/CartContext"
 import { GlobalStyles } from "@/utils/globalStyles"
 import { Toaster } from "react-hot-toast"
@@ -9,6 +9,7 @@ import { Toaster } from "react-hot-toast"
 
 export default function App({ Component, pageProps }) {
   return (
+    <HelmetProvider>
     <>
       <Toaster /> {/* Notification toaster for displaying messages */}
       <Helmet>
@@ -25,5 +26,6 @@ export default function App({ Component, pageProps }) {
         {/* Render the component associated with the current route */}
       </CartContextProvider>
     </>
+    </HelmetProvider>
   )
 }

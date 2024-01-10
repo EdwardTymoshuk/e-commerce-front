@@ -6,8 +6,8 @@ import { device } from "@/utils/devices"
 
 // Define a styled navigation element with conditional styles for mobile
 const StyledNav = styled.nav`
-    visibility: ${props => (props.mobileNavActive ? 'visible' : 'hidden')};
-    opacity: ${props => (props.mobileNavActive ? 1 : 0)};
+    visibility: ${props => (props.$isMobileNavActive ? "visible" : "hidden")};
+    opacity: ${props => (props.$isMobileNavActive ? 1 : 0)};
     gap: 0.5rem;
     position: fixed;
     top: 0;
@@ -41,14 +41,14 @@ const StyledNav = styled.nav`
 `
 
 // Define the Nav component
-const Nav = ({mobileNavActive}) => {
+const Nav = ({...props}) => {
     const {cartProducts} = useContext(CartContext)
 
     return (
-        <StyledNav mobileNavActive={mobileNavActive}>
-            <Link href={'/'}>Home</Link>
-            <Link href={'/products'}>Products</Link>
-            <Link href={'/cart'}>Cart ({cartProducts.length})</Link>
+        <StyledNav {...props}>
+            <Link href={"/"}>Home</Link>
+            <Link href={"/products"}>Products</Link>
+            <Link href={"/cart"}>Cart ({cartProducts.length})</Link>
         </StyledNav>
     )
 }

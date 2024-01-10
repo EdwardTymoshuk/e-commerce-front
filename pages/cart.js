@@ -9,7 +9,7 @@ import { device } from "@/utils/devices"
 import axios from "axios"
 import { useContext, useEffect, useState } from "react"
 import { styled } from "styled-components"
-import { BsFillHeartFill } from 'react-icons/bs'
+import { BsFillHeartFill } from "react-icons/bs"
 import Footer from "@/components/Footer"
 import PageWrapper from "@/components/PageWrapper"
 import Link from "next/link"
@@ -120,18 +120,18 @@ const CartPage = () => {
 
   // State variables for managing form data and errors
   const [products, setProducts] = useState([])
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [city, setCity] = useState('')
-  const [postalCode, setPostalCode] = useState('')
-  const [streetAddress, setStreetAddress] = useState('')
-  const [country, setCountry] = useState('')
-  const [nameError, setNameError] = useState('')
-  const [emailError, setEmailError] = useState('')
-  const [cityError, setCityError] = useState('')
-  const [postalCodeError, setPostalCodeError] = useState('')
-  const [streetAddressError, setStreetAddressError] = useState('')
-  const [countryError, setCountryError] = useState('')
+  const [name, setName] = useState("")
+  const [email, setEmail] = useState("")
+  const [city, setCity] = useState("")
+  const [postalCode, setPostalCode] = useState("")
+  const [streetAddress, setStreetAddress] = useState("")
+  const [country, setCountry] = useState("")
+  const [nameError, setNameError] = useState("")
+  const [emailError, setEmailError] = useState("")
+  const [cityError, setCityError] = useState("")
+  const [postalCodeError, setPostalCodeError] = useState("")
+  const [streetAddressError, setStreetAddressError] = useState("")
+  const [countryError, setCountryError] = useState("")
   const [inputError, setInputError] = useState({
     name: false,
     email: false,
@@ -147,7 +147,7 @@ const CartPage = () => {
   // Load products in the cart from the server when the cartProducts change.
   useEffect(() => {
     if (cartProducts.length > 0) {
-      axios.post('/api/cart', { ids: cartProducts })
+      axios.post("/api/cart", { ids: cartProducts })
         .then(response => {
           setProducts(response.data)
         })
@@ -158,14 +158,14 @@ const CartPage = () => {
 
   // Check for a successful order completion and clear the cart.
   useEffect(() => {
-    if (typeof window === 'undefined') {
+    if (typeof window === "undefined") {
       return
     }
-    if (window?.location.href.includes('success')) {
+    if (window?.location.href.includes("success")) {
       setIsSuccess(true)
       clearCart()
     }
-  }, [clearCart])
+  }, [])
 
   // Increase the quantity of a product in the cart.
   const moreOfThisProduct = (id) => (
@@ -181,19 +181,19 @@ const CartPage = () => {
   const validateName = () => {
     let isValid = true
     if (!name) {
-      setNameError('Name is required')
+      setNameError("Name is required")
       setInputError((prevState) => ({ ...prevState, name: true }))
       isValid = false
     } else if (name.length < 2) {
-      setNameError('Name must be at least 3 characters')
+      setNameError("Name must be at least 3 characters")
       setInputError((prevState) => ({ ...prevState, name: true }))
       isValid = false
     } else if (name.length > 50) {
-      setNameError('Name must be less than 50 characters')
+      setNameError("Name must be less than 50 characters")
       setInputError((prevState) => ({ ...prevState, name: true }))
       isValid = false
     } else {
-      setNameError('')
+      setNameError("")
       setInputError((prevState) => ({ ...prevState, name: false }))
     }
     return isValid
@@ -204,23 +204,23 @@ const CartPage = () => {
     let isValid = true
     let validEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
     if (!email) {
-      setEmailError('Email is required')
+      setEmailError("Email is required")
       setInputError((prevState) => ({ ...prevState, email: true }))
       isValid = false
     } else if (!email.match(validEmail)) {
-      setEmailError('Invalid e-mail format')
+      setEmailError("Invalid e-mail format")
       setInputError((prevState) => ({ ...prevState, email: true }))
       isValid = false
     } else if (email.length < 5) {
-      setEmailError('Email must be at least 3 characters')
+      setEmailError("Email must be at least 3 characters")
       setInputError((prevState) => ({ ...prevState, email: true }))
       isValid = false
     } else if (email.length > 75) {
-      setEmailError('Email must be less than 75 characters')
+      setEmailError("Email must be less than 75 characters")
       setInputError((prevState) => ({ ...prevState, email: true }))
       isValid = false
     } else {
-      setEmailError('')
+      setEmailError("")
       setInputError((prevState) => ({ ...prevState, email: false }))
     }
     return isValid
@@ -230,19 +230,19 @@ const CartPage = () => {
   const validateCity = () => {
     let isValid = true
     if (!city) {
-      setCityError('City is required')
+      setCityError("City is required")
       setInputError((prevState) => ({ ...prevState, city: true }))
       isValid = false
     } else if (city.length < 3) {
-      setCityError('City must be at least 3 characters')
+      setCityError("City must be at least 3 characters")
       setInputError((prevState) => ({ ...prevState, city: true }))
       isValid = false
     } else if (city.length > 50) {
-      setCityError('City must be less than 50 characters')
+      setCityError("City must be less than 50 characters")
       setInputError((prevState) => ({ ...prevState, city: true }))
       isValid = false
     } else {
-      setCityError('')
+      setCityError("")
       setInputError((prevState) => ({ ...prevState, city: false }))
     }
     return isValid
@@ -253,15 +253,15 @@ const CartPage = () => {
     let isValid = true
     let validPostalCode = /(^\d{5}$)|(^\d{2}-\d{3}$|(^\d{5}-\d{4}$))/
     if (!postalCode) {
-      setPostalCodeError('Postal code is required')
+      setPostalCodeError("Postal code is required")
       setInputError((prevState) => ({ ...prevState, postalCode: true }))
       isValid = false
     } else if (!postalCode.match(validPostalCode)) {
-      setPostalCodeError('Invalid postal code')
+      setPostalCodeError("Invalid postal code")
       setInputError((prevState) => ({ ...prevState, postalCode: true }))
       isValid = false
     } else {
-      setPostalCodeError('')
+      setPostalCodeError("")
       setInputError((prevState) => ({ ...prevState, postalCode: false }))
     }
     return isValid
@@ -271,19 +271,19 @@ const CartPage = () => {
   const validateStreetAddress = () => {
     let isValid = true
     if (!streetAddress) {
-      setStreetAddressError('StreetAddress is required')
+      setStreetAddressError("StreetAddress is required")
       setInputError((prevState) => ({ ...prevState, streetAddress: true }))
       isValid = false
     } else if (streetAddress.length < 3) {
-      setStreetAddressError('Street address must be at least 3 characters')
+      setStreetAddressError("Street address must be at least 3 characters")
       setInputError((prevState) => ({ ...prevState, streetAddress: true }))
       isValid = false
     } else if (streetAddress.length > 50) {
-      setStreetAddressError('Street address must be less than 50 characters')
+      setStreetAddressError("Street address must be less than 50 characters")
       setInputError((prevState) => ({ ...prevState, streetAddress: true }))
       isValid = false
     } else {
-      setStreetAddressError('')
+      setStreetAddressError("")
       setInputError((prevState) => ({ ...prevState, streetAddress: false }))
     }
     return isValid
@@ -293,19 +293,19 @@ const CartPage = () => {
   const validateCountry = () => {
     let isValid = true
     if (!country) {
-      setCountryError('Country is required')
+      setCountryError("Country is required")
       setInputError((prevState) => ({ ...prevState, country: true }))
       isValid = false
     } else if (country.length < 3) {
-      setCountryError('Country must be at least 3 characters')
+      setCountryError("Country must be at least 3 characters")
       setInputError((prevState) => ({ ...prevState, country: true }))
       isValid = false
     } else if (country.length > 50) {
-      setCountryError('Country must be less than 50 characters')
+      setCountryError("Country must be less than 50 characters")
       setInputError((prevState) => ({ ...prevState, country: true }))
       isValid = false
     } else {
-      setCountryError('')
+      setCountryError("")
       setInputError((prevState) => ({ ...prevState, country: false }))
     }
     return isValid
@@ -313,22 +313,26 @@ const CartPage = () => {
 
   // Validate the entire form.
   const validateForm = () => {
-    const isValid =
-      validateName() &&
-      validateEmail() &&
-      validateCity() &&
-      validatePostalCode() &&
-      validateStreetAddress() &&
-      validateCountry();
+    const nameValid = validateName()
+    const emailValid = validateEmail()
+    const cityValid = validateCity()
+    const postalCodeValid = validatePostalCode()
+    const streetAddressValid = validateStreetAddress()
+    const countryValid = validateCountry()
+  
+    return nameValid && emailValid && cityValid && postalCodeValid && streetAddressValid && countryValid
+  }
 
-    return isValid;
+  const onBlurAction = (e, action) => {
+    e.relatedTarget?.tagName === "BUTTON" ? () => validateForm() : action()
   }
 
   // Redirect to the payment page if the form is valid.
   const goToPayment = async () => {
-    const isValid = validateForm()
-    if (isValid) {
-      const response = await axios.post('/api/checkout', {
+    const formIsValid = validateForm()
+
+    if (formIsValid) {
+      const response = await axios.post("/api/checkout", {
         name, email, city, postalCode,
         streetAddress, country, cartProducts
       })
@@ -426,8 +430,8 @@ const CartPage = () => {
                     value={name}
                     name="name"
                     onChange={ev => (setName(ev.target.value))}
-                    onBlur={() => validateName()}
-                    inputError={inputError.name}
+                    onBlur={(e) => onBlurAction(e, validateName)} 
+                    $inputError={inputError.name}
                   />
                   {nameError && <ErrorMessage>{nameError}</ErrorMessage>}
                   <Input type="text"
@@ -435,8 +439,8 @@ const CartPage = () => {
                     value={email}
                     name="email"
                     onChange={ev => setEmail(ev.target.value)}
-                    onBlur={() => validateEmail()}
-                    inputError={inputError.email}
+                    onBlur={(e) => onBlurAction(e, validateEmail)} 
+                    $inputError={inputError.email}
                   />
                   {emailError && <ErrorMessage>{emailError}</ErrorMessage>}
                   <CityHolder>
@@ -446,8 +450,8 @@ const CartPage = () => {
                         value={city}
                         name="city"
                         onChange={ev => setCity(ev.target.value)}
-                        onBlur={() => validateCity()}
-                        inputError={inputError.city}
+                        onBlur={(e) => onBlurAction(e, validateCity)} 
+                        $inputError={inputError.city}
                       />
                       {cityError && <ErrorMessage>{cityError}</ErrorMessage>}
                     </CityHolderInputWrapper>
@@ -457,8 +461,8 @@ const CartPage = () => {
                         value={postalCode}
                         name="postalCode"
                         onChange={ev => setPostalCode(ev.target.value)}
-                        onBlur={() => validatePostalCode()}
-                        inputError={inputError.postalCode}
+                        onBlur={(e) => onBlurAction(e, validatePostalCode)} 
+                        $inputError={inputError.postalCode}
                       />
                       {postalCodeError && <ErrorMessage>{postalCodeError}</ErrorMessage>}
                     </CityHolderInputWrapper>
@@ -468,8 +472,8 @@ const CartPage = () => {
                     value={streetAddress}
                     name="streetAddress"
                     onChange={ev => setStreetAddress(ev.target.value)}
-                    onBlur={() => validateStreetAddress()}
-                    inputError={inputError.streetAddress}
+                    onBlur={(e) => onBlurAction(e, validateStreetAddress)} 
+                    $inputError={inputError.streetAddress}
                   />
                   {streetAddressError && <ErrorMessage>{streetAddressError}</ErrorMessage>}
                   <Input type="text"
@@ -477,8 +481,8 @@ const CartPage = () => {
                     value={country}
                     name="country"
                     onChange={ev => setCountry(ev.target.value)}
-                    onBlur={() => validateCountry()}
-                    inputError={inputError.country}
+                    onBlur={(e) => onBlurAction(e, validateCountry)} 
+                    $inputError={inputError.country}
                   />
                   {countryError && <ErrorMessage>{countryError}</ErrorMessage>}
                   <Button $block $bgColor="black" onClick={goToPayment}>Go to payment</Button>

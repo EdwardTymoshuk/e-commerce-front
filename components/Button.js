@@ -99,12 +99,11 @@ export const ButtonStyle = css`
   `}
 `
 
+export const StyledButton = styled.button`
+${ButtonStyle}
+`
+
 const Button = ({ children, backgroundColor, ...rest }) => {
-
-  const StyledButton = styled.button`
-    ${ButtonStyle}
-  `
-
   return (
     <StyledButton {...rest}>{children}</StyledButton>
   )

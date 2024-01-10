@@ -42,6 +42,7 @@ const Page404 = () => {
           src={astronaut}
           alt="astronaut"
           width={200}
+          height="auto"
         />
         <h2>Oops! It looks like you&apos;re lost.</h2>
         <Button><Link href="/">Back Home</Link></Button>

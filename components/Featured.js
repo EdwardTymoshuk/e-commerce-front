@@ -2,7 +2,7 @@ import React, { useContext } from "react"
 import Centered from "./Centered"
 import { styled } from "styled-components"
 import Button from "./Button"
-import { FaCartPlus } from 'react-icons/fa'
+import { FaCartPlus } from "react-icons/fa"
 import ButtonLink from "./ButtonLink"
 import { CartContext } from "./CartContext"
 import { device } from "@/utils/devices"
@@ -79,9 +79,9 @@ const Featured = ({ product }) => {
 
     // Extract short description from HTML
     const shortDescription = description
-        .split('<h2><strong>Description:</strong></h2>')[1]
-        .split('</span>')[0]
-        .replace(/<p><span style="color: rgb\(4, 12, 19\);">/g, '')
+        .split("<h2><strong>Description:</strong></h2>")[1]
+        .split("</span>")[0]
+        .replace(/<p><span style="color: rgb\(4, 12, 19\);">/g, "")
 
     return (
         <StyledDiv>
@@ -91,7 +91,7 @@ const Featured = ({ product }) => {
                         <Title>{title}</Title>
                         <Desc>{shortDescription}</Desc>
                         <div>
-                            <ButtonLink href={'/product/' + _id} $outliner={1} size="l">Read more</ButtonLink>
+                            <ButtonLink href={"/product/" + _id} $outliner={1} size="l">Read more</ButtonLink>
                             <Button onClick={addToCart} size="l" $bgColor="success"><FaCartPlus style={{ height: "1rem" }} /> Add to cart</Button>
                         </div>
                     </div>

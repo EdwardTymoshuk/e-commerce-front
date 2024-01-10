@@ -1,40 +1,51 @@
 import { mongooseConnect } from "@/lib/mongoose"
-const stripe = require('stripe')(process.env.STRIPE_SK)
-import { buffer } from 'micro'
+const stripe = require("stripe")(process.env.STRIPE_SK)
+import { buffer } from "micro"
 import { Order } from "@/models/Order"
 
-const endpointSecret = 'whsec_946035c2edca2064d947e4c6c5272868df47317c236d278c71926a90a20dbc30'
-
 export default async function handler(req, res) {
+    console.log("Console: Webhook handler is called") 
     await mongooseConnect()
-    const sig = req.headers['stripe-signature']
+    const sig = req.headers["stripe-signature"]
     let event
     try {
-        event = stripe.webhooks.constructEvent(await buffer(req), sig, endpointSecret)
+        // Construct the event from the request payload and your Stripe endpoint secret
+        event = stripe.webhooks.constructEvent(await buffer(req), sig, process.env.STRIPE_EP_SECRET)
     } catch (err) {
+        // Handle webhook construction errors
         res.status(400).send(`Webhook Error: ${err.message}`)
         return
     }
 
-    // Handle the event
+    // Handle different types of Stripe events
     switch (event.type) {
-        case 'checkout.session.completed':
-            const data = event.data.object
-            const orderId = data.metadata.orderId
-            const paid = data.payment_status === 'paid'
-            if (orderId && paid) {
-                await Order.findByIdAndUpdate(orderId, {
-                    paid: true,
-                })
+        case "checkout.session.completed":
+            const sessionId = event.data.object.id
+            const session = await stripe.checkout.sessions.retrieve(sessionId)
+            if (session.payment_status === "paid") {
+                const orderId = session.metadata.orderId
+                if (orderId) {
+                    // Update the order status to "paid" in your database
+                    const updatedOrder = await Order.findByIdAndUpdate(orderId, {
+                        paid: true,
+                    }, { new: true })
+
+                    if (updatedOrder) {
+                        console.log("Order successfully updated:", updatedOrder)
+                    } else {
+                        console.error("Error updating order")
+                    }
+                }
             }
             break
         default:
             console.log(`Unhandled event type ${event.type}`)
     }
 
-    res.status(200).send('ok')
+    // Respond with a 200 OK to acknowledge receipt of the event
+    res.status(200).send("ok")
 }
 
 export const config = {
-    api: { bodyParser: false, }
+    api: { bodyParser: false }
 }
