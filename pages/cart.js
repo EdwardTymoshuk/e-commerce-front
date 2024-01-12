@@ -179,7 +179,7 @@ const CartPage = () => {
     }
     if (window?.location.href.includes("success")) {
       setIsSuccess(true)
-      clearCart()
+      clearCart({isAutoClear: true})
     }
   }, [])
 
@@ -404,7 +404,7 @@ const CartPage = () => {
           <div>
             <PageHeader>
             <h2>Cart</h2>
-            {cartProducts?.length ? <Button onClick={clearCart} size="md">Clear cart</Button> : ""}
+            {cartProducts?.length ? <Button onClick={() => clearCart({isAutoClear: false})} size="md">Clear cart</Button> : ""}
             </PageHeader>
             <WhiteBox>
               {!cartProducts?.length ?

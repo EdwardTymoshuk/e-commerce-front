@@ -64,7 +64,9 @@ const CartContextProvider = ({ children, product }) => {
   }
 
   // Clear cart
-  const clearCart = () => {
+  const clearCart = ({isAutoClear}) => {
+    console.log(isAutoClear)
+    !isAutoClear ?
     toast(() => (
       <ToastdDiv>
         <h5>
@@ -92,8 +94,11 @@ const CartContextProvider = ({ children, product }) => {
           Cancel
         </Button>
         </ButtonsWraper>
-      </ToastdDiv>
+      </ToastdDiv> 
     ))
+    :
+    setCartProducts([])
+    ls.removeItem("cart")
   }
   
 
