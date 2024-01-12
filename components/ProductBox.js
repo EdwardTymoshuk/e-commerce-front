@@ -69,6 +69,9 @@ const Title = styled(Link)`
   text-decoration: none;
   margin: 0;
   text-align: center;
+  &:hover {
+      color: var(--primary-color)
+    }
 `
 
 // ProductBox component
@@ -103,7 +106,7 @@ const ProductBox = ({ _id, title, description, price, images }) => {
           <Price>
             ${price}
           </Price>
-          <Button onClick={addToCart} size="s" $bgColor="success">{isAddingToCart ?
+          <Button onClick={addToCart} size="s" $bgColor="success" disabled={isAddingToCart}>{isAddingToCart ?
             <MdDone size={19} /> :
             "Add to cart"
           }

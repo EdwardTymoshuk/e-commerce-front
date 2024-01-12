@@ -1,6 +1,5 @@
 import { createContext, useEffect, useState } from "react"
 import { toast } from "react-hot-toast"
-import Centered from "./Centered"
 import { styled } from "styled-components"
 import Button from "./Button"
 
@@ -44,7 +43,7 @@ const CartContextProvider = ({ children, product }) => {
     isToast && toast.success(`The product has been added to the cart.`)
   }
 
-  // Remove a product from the cart
+  // Remove a one unit of product from the cart
   const removeProduct = (productId) => {
     setCartProducts(prev => {
       const pos = prev.indexOf(productId)
@@ -55,6 +54,7 @@ const CartContextProvider = ({ children, product }) => {
     })
   }
 
+  // Remove product from the cart
   const deleteProduct = (productId, isToast) => {
     console.log(cartProducts)
     setCartProducts(prev => {
@@ -63,6 +63,7 @@ const CartContextProvider = ({ children, product }) => {
     isToast && toast.success(`The product has been removed from the cart`)
   }
 
+  // Clear cart
   const clearCart = () => {
     toast(() => (
       <ToastdDiv>
@@ -92,8 +93,8 @@ const CartContextProvider = ({ children, product }) => {
         </Button>
         </ButtonsWraper>
       </ToastdDiv>
-    ));
-  };
+    ))
+  }
   
 
   return (

@@ -19,10 +19,19 @@ const StyledTable = styled.table`
     border-top: 1px solid rgba(0, 0, 0, 0.1);
     color: var(--dark-text-color);
     padding: 10px;
+    @media screen and (min-width: 771px) and (max-width: 820px) {
+      padding: 5px;
+  }
   }
   td:nth-child(2) {
     text-align: center;
-  }
+    @media ${device.tablet} {
+      text-align: start;
+    }
+    }
+  td:last-child{
+    text-align: end;
+    }
   tr:last-child {
     font-weight: 600;
   }

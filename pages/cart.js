@@ -69,9 +69,14 @@ const ProductImageBox = styled.div`
 const QuantityLabel = styled.span`
   padding: 0 15px;
   display: block;
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: 820px) {
     display: inline-block;
     padding: 0 10px;
+  }
+  @media screen and (min-width: 771px) and (max-width: 820px) {
+    display: inline-block;
+    padding: 0 5px;
+    font-size: small;
   }
 `
 const CityHolder = styled.div`
@@ -188,7 +193,7 @@ const CartPage = () => {
     removeProduct(id)
   )
 
-  // Delete product from cart
+  // Delete product from the cart
   const deleteItem = (id) => {
     deleteProduct(id, true)
   }
@@ -427,11 +432,13 @@ const CartPage = () => {
                         </ProductInfoCell>
                         <td>
                           <Button
+                            size="md"
                             onClick={() => lessOfThisProduct(product._id)}>-</Button>
                           <QuantityLabel>
                             {cartProducts.filter(id => id === product._id).length}
                           </QuantityLabel>
                           <Button
+                          size="md"
                             onClick={() => moreOfThisProduct(product._id)}>+</Button>
                         </td>
                         <td>
@@ -442,6 +449,7 @@ const CartPage = () => {
                     ))}
                     <tr>
                       <td>Total:</td>
+                      <td></td>
                       <td></td>
                       <td>${total}</td>
                     </tr>

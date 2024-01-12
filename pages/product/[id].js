@@ -95,7 +95,7 @@ const ProductPage = ({ product }) => {
                                 ${price}
                             </Price>
                             {/* <Button onClick={() => addProduct(_id, true)} size="s" $bgColor="success">Add to cart</Button> */}
-                            <Button onClick={addToCart} size="ss" $bgColor="success">{
+                            <Button onClick={addToCart} size="ss" $bgColor="success" disabled={isAddingToCart}>{
                                 isAddingToCart ?
                                 <MdDone size={24} /> :
                                 "Add to cart"

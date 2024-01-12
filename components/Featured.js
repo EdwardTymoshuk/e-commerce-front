@@ -8,7 +8,7 @@ import { device } from "@/utils/devices"
 import Image from "next/image"
 import { useRouter } from "next/router"
 import CircleSpinner from "./CircleSpinner"
-import { MdDone } from "react-icons/md";
+import { MdDone } from "react-icons/md"
 
 // Define a styled div with certain styles
 const StyledDiv = styled.div`
@@ -122,10 +122,10 @@ const Featured = ({ product }) => {
                         <div>
                             {/* <ButtonLink href={"/product/" + _id} $outliner={1} size="l">Read more</ButtonLink> */}
                             <Button onClick={handleReadMore} $outliner={1} size="l" disabled={isReadMoreClicked}>{isReadMoreClicked ? <CircleSpinner size={24} color="#ec9b00" hovercolor="#fff" /> : "Read more"}</Button>
-                            <Button onClick={addToCart} size="l" $bgColor="success">{isAddingToCart ?
+                            <Button onClick={addToCart} size="l" $bgColor="success" disabled={isAddingToCart}>{isAddingToCart ?
                                 <MdDone size={24} /> :
                                 (<>
-                                    <FaCartPlus style={{ height: "1rem" }} /> Add to cart
+                                    <FaCartPlus style={{ height: "1rem" }}/> Add to cart
                                 </>)}
                             </Button>
                         </div>
