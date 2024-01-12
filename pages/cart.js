@@ -10,10 +10,12 @@ import axios from "axios"
 import { useContext, useEffect, useState } from "react"
 import { styled } from "styled-components"
 import { BsFillHeartFill } from "react-icons/bs"
+import { RxCross2 } from "react-icons/rx"
 import Footer from "@/components/Footer"
 import PageWrapper from "@/components/PageWrapper"
 import Link from "next/link"
 import Image from "next/image"
+import CircleSpinner from "@/components/CircleSpinner"
 
 // Styled-components for styling elements
 const ColumnsWraper = styled.div`
@@ -28,6 +30,16 @@ const ColumnsWraper = styled.div`
     gap: 50px;
     }
 `
+const PageHeader = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  button {
+    height: fit-content;
+  }
+`
+
 const ProductInfoCell = styled.td`
   padding: 10px 0;
 `
@@ -116,7 +128,7 @@ const ThanksWrapper = styled.div`
 // CartPage component
 const CartPage = () => {
   // Using CartContext to manage cart state
-  const { cartProducts, addProduct, removeProduct, clearCart } = useContext(CartContext)
+  const { cartProducts, addProduct, removeProduct, deleteProduct, clearCart } = useContext(CartContext)
 
   // State variables for managing form data and errors
   const [products, setProducts] = useState([])
@@ -140,9 +152,8 @@ const CartPage = () => {
     streetAddress: false,
     country: false,
   })
-
-  // State variable to track the success status of the order.
   const [isSuccess, setIsSuccess] = useState(false)
+  const [isGoingToPayment, setIsGoingToPayment] = useState(false)
 
   // Load products in the cart from the server when the cartProducts change.
   useEffect(() => {
@@ -176,6 +187,11 @@ const CartPage = () => {
   const lessOfThisProduct = (id) => (
     removeProduct(id)
   )
+
+  // Delete product from cart
+  const deleteItem = (id) => {
+    deleteProduct(id, true)
+  }
 
   // Validate the name input field.
   const validateName = () => {
@@ -319,7 +335,7 @@ const CartPage = () => {
     const postalCodeValid = validatePostalCode()
     const streetAddressValid = validateStreetAddress()
     const countryValid = validateCountry()
-  
+
     return nameValid && emailValid && cityValid && postalCodeValid && streetAddressValid && countryValid
   }
 
@@ -332,11 +348,20 @@ const CartPage = () => {
     const formIsValid = validateForm()
 
     if (formIsValid) {
-      const response = await axios.post("/api/checkout", {
-        name, email, city, postalCode,
-        streetAddress, country, cartProducts
-      })
-      if (response.data.url) return window.location = response.data.url
+      setIsGoingToPayment(true)
+      try {
+        const response = await axios.post("/api/checkout", {
+          name, email, city, postalCode,
+          streetAddress, country, cartProducts
+        })
+        if (response.data.url) return window.location = response.data.url
+      } catch (error) {
+        console.error(error)
+      } finally {
+        setIsGoingToPayment(false)
+      }
+
+
     }
   }
 
@@ -372,7 +397,10 @@ const CartPage = () => {
       <Centered>
         <ColumnsWraper>
           <div>
+            <PageHeader>
             <h2>Cart</h2>
+            {cartProducts?.length ? <Button onClick={clearCart} size="md">Clear cart</Button> : ""}
+            </PageHeader>
             <WhiteBox>
               {!cartProducts?.length ?
                 <div>
@@ -385,6 +413,7 @@ const CartPage = () => {
                       <th>Product</th>
                       <th>Quantity</th>
                       <th>Price</th>
+                      <th></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -392,7 +421,7 @@ const CartPage = () => {
                       <tr key={product._id}>
                         <ProductInfoCell>
                           <ProductImageBox>
-                          <Image src={product.images[0]} alt={product.title} width={60} height={60} />
+                            <Image src={product.images[0]} alt={product.title} width={60} height={60} />
                           </ProductImageBox>
                           {product.title}
                         </ProductInfoCell>
@@ -408,6 +437,7 @@ const CartPage = () => {
                         <td>
                           ${cartProducts.filter(id => id === product._id).length * product.price}
                         </td>
+                        <td className="cart-delete-item"><Button onClick={() => deleteItem(product._id)} $deleteIco><RxCross2 /></Button></td>
                       </tr>
                     ))}
                     <tr>
@@ -430,7 +460,7 @@ const CartPage = () => {
                     value={name}
                     name="name"
                     onChange={ev => (setName(ev.target.value))}
-                    onBlur={(e) => onBlurAction(e, validateName)} 
+                    onBlur={(e) => onBlurAction(e, validateName)}
                     $inputError={inputError.name}
                   />
                   {nameError && <ErrorMessage>{nameError}</ErrorMessage>}
@@ -439,7 +469,7 @@ const CartPage = () => {
                     value={email}
                     name="email"
                     onChange={ev => setEmail(ev.target.value)}
-                    onBlur={(e) => onBlurAction(e, validateEmail)} 
+                    onBlur={(e) => onBlurAction(e, validateEmail)}
                     $inputError={inputError.email}
                   />
                   {emailError && <ErrorMessage>{emailError}</ErrorMessage>}
@@ -450,7 +480,7 @@ const CartPage = () => {
                         value={city}
                         name="city"
                         onChange={ev => setCity(ev.target.value)}
-                        onBlur={(e) => onBlurAction(e, validateCity)} 
+                        onBlur={(e) => onBlurAction(e, validateCity)}
                         $inputError={inputError.city}
                       />
                       {cityError && <ErrorMessage>{cityError}</ErrorMessage>}
@@ -461,7 +491,7 @@ const CartPage = () => {
                         value={postalCode}
                         name="postalCode"
                         onChange={ev => setPostalCode(ev.target.value)}
-                        onBlur={(e) => onBlurAction(e, validatePostalCode)} 
+                        onBlur={(e) => onBlurAction(e, validatePostalCode)}
                         $inputError={inputError.postalCode}
                       />
                       {postalCodeError && <ErrorMessage>{postalCodeError}</ErrorMessage>}
@@ -472,7 +502,7 @@ const CartPage = () => {
                     value={streetAddress}
                     name="streetAddress"
                     onChange={ev => setStreetAddress(ev.target.value)}
-                    onBlur={(e) => onBlurAction(e, validateStreetAddress)} 
+                    onBlur={(e) => onBlurAction(e, validateStreetAddress)}
                     $inputError={inputError.streetAddress}
                   />
                   {streetAddressError && <ErrorMessage>{streetAddressError}</ErrorMessage>}
@@ -481,14 +511,18 @@ const CartPage = () => {
                     value={country}
                     name="country"
                     onChange={ev => setCountry(ev.target.value)}
-                    onBlur={(e) => onBlurAction(e, validateCountry)} 
+                    onBlur={(e) => onBlurAction(e, validateCountry)}
                     $inputError={inputError.country}
                   />
                   {countryError && <ErrorMessage>{countryError}</ErrorMessage>}
-                  <Button $block $bgColor="black" onClick={goToPayment}>Go to payment</Button>
+                  <Button $block $bgColor="black" onClick={goToPayment}>
+                    {isGoingToPayment ?
+                      <CircleSpinner size={24} color="#fff" /> :
+                      "Go to payment"
+                    }
+                  </Button>
                 </WhiteBox>
               </>
-
             }
           </div>
         </ColumnsWraper>

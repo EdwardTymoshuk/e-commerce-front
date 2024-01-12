@@ -8,12 +8,14 @@ export const GlobalStyles = createGlobalStyle`
     --bg-color: #e9ecef;
 
     --light-primary-color: #EAC873;
+    --dark-primary-color: #E2B43E;
     --header-color: #343a40;
     --light-header-color: #2F5767;
     --success-color: #2A9D8F;
     --light-success-color: #2EAFA0;
     --danger-color: #E76F51;
-    --light-danger-color: #E9795C;
+    --light-danger-color: #EC8D75;
+    --dark-danger-color: #E24E29;
   }
   body{
     padding: 0;
@@ -35,6 +37,9 @@ export const GlobalStyles = createGlobalStyle`
   }
   h2 {
     color: #000;
+  }
+  .cart-delete-item {
+    vertical-align: baseline;
   }
 
 `

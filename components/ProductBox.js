@@ -1,10 +1,11 @@
 import Link from "next/link"
 import styled from "styled-components"
 import Button from "./Button"
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { CartContext } from "./CartContext"
 import { device } from "@/utils/devices"
 import Image from "next/image"
+import { MdDone } from "react-icons/md"
 
 // Styled container for the product
 const ProductWrapper = styled.div`
@@ -72,24 +73,45 @@ const Title = styled(Link)`
 
 // ProductBox component
 const ProductBox = ({ _id, title, description, price, images }) => {
-    const {addProduct} = useContext(CartContext)
-    const url = "/product/" + _id;
-    return (
-        <ProductWrapper>
-            <ImageBox href={url}>
-                <Image src={images[0]} alt="Product image" width={160} height={160}/>
-            </ImageBox>
-            <ProductInfoBox>
-                <Title href={url}>{title}</Title>
-                <PriceRow>
-                    <Price>
-                        ${price}
-                    </Price>
-                    <Button onClick={() => addProduct(_id, true)} size="s" $bgColor="success">Add to cart</Button>
-                </PriceRow>
-            </ProductInfoBox>
-        </ProductWrapper>
-    )
+
+  const [isAddingToCart, setIsAddingToCart] = useState(false)
+
+  const { addProduct } = useContext(CartContext)
+  const url = "/product/" + _id
+
+  const addToCart = () => {
+    setIsAddingToCart(true)
+    try {
+      addProduct(_id, true)
+    } catch (error) {
+      console.error(error)
+    } finally {
+      setTimeout(() => {
+        setIsAddingToCart(false)
+      }, 1300)
+    }
+  }
+
+  return (
+    <ProductWrapper>
+      <ImageBox href={url}>
+        <Image src={images[0]} alt="Product image" width={160} height={160} />
+      </ImageBox>
+      <ProductInfoBox>
+        <Title href={url}>{title}</Title>
+        <PriceRow>
+          <Price>
+            ${price}
+          </Price>
+          <Button onClick={addToCart} size="s" $bgColor="success">{isAddingToCart ?
+            <MdDone size={19} /> :
+            "Add to cart"
+          }
+          </Button>
+        </PriceRow>
+      </ProductInfoBox>
+    </ProductWrapper>
+  )
 }
 
 export default ProductBox

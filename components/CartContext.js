@@ -1,25 +1,41 @@
 import { createContext, useEffect, useState } from "react"
 import { toast } from "react-hot-toast"
+import Centered from "./Centered"
+import { styled } from "styled-components"
+import Button from "./Button"
+
+const ToastdDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+const ButtonsWraper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  width: 100%;
+`
 
 // Create a context for the cart
 export const CartContext = createContext({})
 
 const CartContextProvider = ({ children, product }) => {
   // Check if localStorage is available
-  const ls = typeof window !== 'undefined' ? localStorage : null
+  const ls = typeof window !== "undefined" ? localStorage : null
   // Initialize cartProducts state
   const [cartProducts, setCartProducts] = useState([])
 
   // Save cartProducts to localStorage when it changes
   useEffect(() => {
     if (cartProducts?.length > 0) {
-      ls.setItem('cart', JSON.stringify(cartProducts))
+      ls.setItem("cart", JSON.stringify(cartProducts))
     }
   }, [cartProducts])
 
   // Load cartProducts from localStorage on component mount
   useEffect(() => {
-    ls && ls.getItem('cart') && setCartProducts(JSON.parse(ls.getItem('cart')))
+    ls && ls.getItem("cart") && setCartProducts(JSON.parse(ls.getItem("cart")))
   }, [])
 
   // Add a product to the cart
@@ -39,15 +55,50 @@ const CartContextProvider = ({ children, product }) => {
     })
   }
 
-  // Clear the entire cart
-  const clearCart = () => {
-    setCartProducts([])
-    ls.removeItem('cart')
+  const deleteProduct = (productId, isToast) => {
+    console.log(cartProducts)
+    setCartProducts(prev => {
+        return prev.filter((value, index) => value !== productId )
+    })
+    isToast && toast.success(`The product has been removed from the cart`)
   }
+
+  const clearCart = () => {
+    toast(() => (
+      <ToastdDiv>
+        <h5>
+        Are you sure? All products will be removed from the cart!
+        </h5>
+        <ButtonsWraper>
+        <Button
+          onClick={() => {
+            setCartProducts([])
+            ls.removeItem("cart")
+            toast.success("Cart cleared!")
+            toast.dismiss()
+          }}
+          $bgColor="danger"
+          size="md"
+        >
+          Delete
+        </Button>
+        <Button
+          onClick={() => {
+            toast.dismiss()
+          }}
+          size="md"
+        >
+          Cancel
+        </Button>
+        </ButtonsWraper>
+      </ToastdDiv>
+    ));
+  };
+  
 
   return (
     // Provide cart-related functions and data to children components
-    <CartContext.Provider value={{ cartProducts, setCartProducts, addProduct, removeProduct, clearCart }}>
+    <CartContext.Provider value={{ cartProducts, setCartProducts, addProduct, removeProduct, deleteProduct, clearCart }}>
       {children}
     </CartContext.Provider>
   )

@@ -9,7 +9,8 @@ import WhiteBox from "@/components/WhiteBox"
 import { mongooseConnect } from "@/lib/mongoose"
 import { Product } from "@/models/Product"
 import { device } from "@/utils/devices"
-import { useContext } from "react"
+import { useContext, useState } from "react"
+import { MdDone } from "react-icons/md"
 import { styled } from "styled-components"
 
 // Styled component for the product title
@@ -53,12 +54,28 @@ const Price = styled.div`
 `;
 
 const ProductPage = ({ product }) => {
+
+    const [isAddingToCart, setIsAddingToCart] = useState(false)
+
     const { _id, title, description, images, price } = product
     const { addProduct } = useContext(CartContext)
 
     // Function to create HTML markup from product description
     const createMarkup = () => {
         return { __html: description };
+    }
+
+    const addToCart = () => {
+        setIsAddingToCart(true)
+        try {
+            addProduct(product._id, true)
+        } catch (error) {
+            console.error(error)
+        } finally {
+            setTimeout(() => {
+                setIsAddingToCart(false)
+            }, 500)
+        }
     }
 
     return (
@@ -77,7 +94,13 @@ const ProductPage = ({ product }) => {
                             <Price>
                                 ${price}
                             </Price>
-                            <Button onClick={() => addProduct(_id, true)} size="s" $bgColor="success">Add to cart</Button>
+                            {/* <Button onClick={() => addProduct(_id, true)} size="s" $bgColor="success">Add to cart</Button> */}
+                            <Button onClick={addToCart} size="ss" $bgColor="success">{
+                                isAddingToCart ?
+                                <MdDone size={24} /> :
+                                "Add to cart"
+                                }
+                            </Button>
                         </PriceRow>
                     </div>
                 </ColWrapper>

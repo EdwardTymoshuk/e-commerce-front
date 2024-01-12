@@ -1,12 +1,14 @@
-import React, { useContext } from "react"
+import React, { useContext, useState } from "react"
 import Centered from "./Centered"
 import { styled } from "styled-components"
 import Button from "./Button"
 import { FaCartPlus } from "react-icons/fa"
-import ButtonLink from "./ButtonLink"
 import { CartContext } from "./CartContext"
 import { device } from "@/utils/devices"
 import Image from "next/image"
+import { useRouter } from "next/router"
+import CircleSpinner from "./CircleSpinner"
+import { MdDone } from "react-icons/md";
 
 // Define a styled div with certain styles
 const StyledDiv = styled.div`
@@ -66,12 +68,39 @@ const Wrapper = styled.div`
 
 // Define the Featured component
 const Featured = ({ product }) => {
+
+    const [isReadMoreClicked, isSetReadMoreClicked] = useState(false)
+    const [isAddingToCart, setIsAddingToCart] = useState(false)
+
+    const router = useRouter()
+
     // Access cart-related functions from CartContext
     const { addProduct } = useContext(CartContext)
 
     // Function to add the product to the cart
     const addToCart = () => {
-        addProduct(product._id, true)
+        setIsAddingToCart(true)
+        try {
+            addProduct(product._id, true)
+        } catch (error) {
+            console.error(error)
+        } finally {
+            setTimeout(() => {
+                setIsAddingToCart(false)
+            }, 500)
+        }
+    }
+
+    const handleReadMore = async (e) => {
+        e.preventDefault()
+        isSetReadMoreClicked(true)
+        try {
+            await router.push(`/product/${_id}`)
+        } catch (error) {
+            console.error(error)
+        } finally {
+            isSetReadMoreClicked(false)
+        }
     }
 
     // Destructure product data
@@ -91,8 +120,14 @@ const Featured = ({ product }) => {
                         <Title>{title}</Title>
                         <Desc>{shortDescription}</Desc>
                         <div>
-                            <ButtonLink href={"/product/" + _id} $outliner={1} size="l">Read more</ButtonLink>
-                            <Button onClick={addToCart} size="l" $bgColor="success"><FaCartPlus style={{ height: "1rem" }} /> Add to cart</Button>
+                            {/* <ButtonLink href={"/product/" + _id} $outliner={1} size="l">Read more</ButtonLink> */}
+                            <Button onClick={handleReadMore} $outliner={1} size="l" disabled={isReadMoreClicked}>{isReadMoreClicked ? <CircleSpinner size={24} color="#ec9b00" hovercolor="#fff" /> : "Read more"}</Button>
+                            <Button onClick={addToCart} size="l" $bgColor="success">{isAddingToCart ?
+                                <MdDone size={24} /> :
+                                (<>
+                                    <FaCartPlus style={{ height: "1rem" }} /> Add to cart
+                                </>)}
+                            </Button>
                         </div>
                     </div>
                     <div>

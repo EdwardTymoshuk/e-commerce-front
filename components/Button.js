@@ -30,13 +30,15 @@ export const ButtonStyle = css`
   /* Button styles based on props */
   ${props => props.size === 'sm' && css`
     font-size: .6rem;
+    padding: .2rem .6rem !important;
   `}
   ${props => props.size === 'md' && css`
-    font-size: .8rem;
+    font-size: .8rem !important;
+    padding: .25rem .7rem !important;
   `}
 
   ${props => props.size === 'l' && css`
-    font-size: 1rem;
+    font-size: 1rem !important;
   `}
 
   ${props => props.block && css`
@@ -100,6 +102,22 @@ export const ButtonStyle = css`
     &:hover {
       background-color: var(--light-primary-color);
       color: var(--dark-text-color);
+    }
+  `}
+  ${props => props.$deleteIco && css`
+    background-color: transparent;
+    border: none;
+    border-color: transparent;
+    color: var(--danger-color);
+    font-size: .8rem;
+
+    &:hover {
+      background-color: transparent;
+      border: none;
+      border-color: transparent;
+      color: red;
+      transform: scale(1.1);
+      transition: all ease-in .1s;
     }
   `}
 `
