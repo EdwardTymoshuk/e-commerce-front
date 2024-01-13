@@ -56,7 +56,6 @@ const CartContextProvider = ({ children, product }) => {
 
   // Remove product from the cart
   const deleteProduct = (productId, isToast) => {
-    console.log(cartProducts)
     setCartProducts(prev => {
         return prev.filter((value, index) => value !== productId )
     })
@@ -65,7 +64,6 @@ const CartContextProvider = ({ children, product }) => {
 
   // Clear cart
   const clearCart = ({isAutoClear}) => {
-    console.log(isAutoClear)
     !isAutoClear ?
     toast(() => (
       <ToastdDiv>
